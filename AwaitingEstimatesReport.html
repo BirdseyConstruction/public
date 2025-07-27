@@ -93,7 +93,7 @@
         .export-btn:hover {
             background-color: #1557b0;
         }
-        .units-input {
+        .units-input, .comment-input { /* Added .comment-input */
             width: 80%;
             padding: 5px;
             margin: 5px 0;
@@ -111,7 +111,7 @@
         .save-btn:hover {
             background-color: #45a049;
         }
-        .units-row {
+        .units-row, .comment-row { /* Added .comment-row */
             border: none;
         }
         .saved-message {
@@ -186,6 +186,13 @@
                             <span class="saved-message" id="saved-2112 Cumberland Road">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="2112 Cumberland Road" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('2112 Cumberland Road')">Save</button>
+                            <span class="saved-message" id="comment-saved-2112 Cumberland Road">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Initial Estimate<br>Fannie Mae (D25008N)</td>
                         <td>162 E Middleton Rd</td>
@@ -201,6 +208,13 @@
                             <input type="text" class="units-input" data-address="162 E Middleton Rd" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('162 E Middleton Rd')">Save</button>
                             <span class="saved-message" id="saved-162 E Middleton Rd">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="162 E Middleton Rd" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('162 E Middleton Rd')">Save</button>
+                            <span class="saved-message" id="comment-saved-162 E Middleton Rd">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -220,6 +234,13 @@
                             <span class="saved-message" id="saved-7831 Highway 113">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="7831 Highway 113" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('7831 Highway 113')">Save</button>
+                            <span class="saved-message" id="comment-saved-7831 Highway 113">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Initial Estimate<br>Fannie Mae (D25009F)</td>
                         <td>913 W Burton Street</td>
@@ -235,6 +256,13 @@
                             <input type="text" class="units-input" data-address="913 W Burton Street" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('913 W Burton Street')">Save</button>
                             <span class="saved-message" id="saved-913 W Burton Street">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="913 W Burton Street" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('913 W Burton Street')">Save</button>
+                            <span class="saved-message" id="comment-saved-913 W Burton Street">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -254,6 +282,13 @@
                             <span class="saved-message" id="saved-117 Fernwood">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="117 Fernwood" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('117 Fernwood')">Save</button>
+                            <span class="saved-message" id="comment-saved-117 Fernwood">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Change Order<br>Fannie Mae (A2400P4)</td>
                         <td>1333 S Perry St</td>
@@ -269,6 +304,13 @@
                             <input type="text" class="units-input" data-address="1333 S Perry St" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('1333 S Perry St')">Save</button>
                             <span class="saved-message" id="saved-1333 S Perry St">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="1333 S Perry St" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('1333 S Perry St')">Save</button>
+                            <span class="saved-message" id="comment-saved-1333 S Perry St">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -288,6 +330,13 @@
                             <span class="saved-message" id="saved-510 Shump Street">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="510 Shump Street" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('510 Shump Street')">Save</button>
+                            <span class="saved-message" id="comment-saved-510 Shump Street">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Change Order<br>Fannie Mae</td>
                         <td>615 Briarcliff Road</td>
@@ -303,6 +352,13 @@
                             <input type="text" class="units-input" data-address="615 Briarcliff Road" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('615 Briarcliff Road')">Save</button>
                             <span class="saved-message" id="saved-615 Briarcliff Road">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="615 Briarcliff Road" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('615 Briarcliff Road')">Save</button>
+                            <span class="saved-message" id="comment-saved-615 Briarcliff Road">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -322,6 +378,13 @@
                             <span class="saved-message" id="saved-919 D Avenue">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="919 D Avenue" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('919 D Avenue')">Save</button>
+                            <span class="saved-message" id="comment-saved-919 D Avenue">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Change Order<br>Fannie Mae (POST CO)</td>
                         <td>16949 Ravenna Road, Chagrin Falls 44023</td>
@@ -337,6 +400,13 @@
                             <input type="text" class="units-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('16949 Ravenna Road, Chagrin Falls 44023')">Save</button>
                             <span class="saved-message" id="saved-16949 Ravenna Road, Chagrin Falls 44023">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('16949 Ravenna Road, Chagrin Falls 44023')">Save</button>
+                            <span class="saved-message" id="comment-saved-16949 Ravenna Road, Chagrin Falls 44023">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -356,6 +426,13 @@
                             <span class="saved-message" id="saved-6276 Cedar Springs Road, New Paris 45347">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="6276 Cedar Springs Road, New Paris 45347" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('6276 Cedar Springs Road, New Paris 45347')">Save</button>
+                            <span class="saved-message" id="comment-saved-6276 Cedar Springs Road, New Paris 45347">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Change Order<br>Fannie Mae (Post CO)</td>
                         <td>1743 E 31ST STREET</td>
@@ -371,6 +448,13 @@
                             <input type="text" class="units-input" data-address="1743 E 31ST STREET" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('1743 E 31ST STREET')">Save</button>
                             <span class="saved-message" id="saved-1743 E 31ST STREET">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="1743 E 31ST STREET" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('1743 E 31ST STREET')">Save</button>
+                            <span class="saved-message" id="comment-saved-1743 E 31ST STREET">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -390,6 +474,13 @@
                             <span class="saved-message" id="saved-1102 Grand Street">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="1102 Grand Street" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('1102 Grand Street')">Save</button>
+                            <span class="saved-message" id="comment-saved-1102 Grand Street">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Initial Estimate<br>Fannie Mae (D25008P)</td>
                         <td>10065 LEMON LN</td>
@@ -405,6 +496,13 @@
                             <input type="text" class="units-input" data-address="10065 LEMON LN" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('10065 LEMON LN')">Save</button>
                             <span class="saved-message" id="saved-10065 LEMON LN">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="10065 LEMON LN" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('10065 LEMON LN')">Save</button>
+                            <span class="saved-message" id="comment-saved-10065 LEMON LN">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -424,6 +522,13 @@
                             <span class="saved-message" id="saved-12085 1100 North">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="12085 1100 North" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('12085 1100 North')">Save</button>
+                            <span class="saved-message" id="comment-saved-12085 1100 North">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Change Order<br>Fannie Mae (C220041) (SEPTIC) Post CO2</td>
                         <td>532 Donovan Rd</td>
@@ -439,6 +544,13 @@
                             <input type="text" class="units-input" data-address="532 Donovan Rd" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('532 Donovan Rd')">Save</button>
                             <span class="saved-message" id="saved-532 Donovan Rd">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="532 Donovan Rd" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('532 Donovan Rd')">Save</button>
+                            <span class="saved-message" id="comment-saved-532 Donovan Rd">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -458,6 +570,13 @@
                             <span class="saved-message" id="saved-920 W Lagoon Ave A215">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="920 W Lagoon Ave A215" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('920 W Lagoon Ave A215')">Save</button>
+                            <span class="saved-message" id="comment-saved-920 W Lagoon Ave A215">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Change Order<br>Fannie Mae (D24005B)</td>
                         <td>126 Southshore Dr</td>
@@ -473,6 +592,13 @@
                             <input type="text" class="units-input" data-address="126 Southshore Dr" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('126 Southshore Dr')">Save</button>
                             <span class="saved-message" id="saved-126 Southshore Dr">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="126 Southshore Dr" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('126 Southshore Dr')">Save</button>
+                            <span class="saved-message" id="comment-saved-126 Southshore Dr">Saved!</span>
                         </td>
                     </tr>
                     <tr>
@@ -492,6 +618,13 @@
                             <span class="saved-message" id="saved-4234 Watkins Road">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="4234 Watkins Road" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('4234 Watkins Road')">Save</button>
+                            <span class="saved-message" id="comment-saved-4234 Watkins Road">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Initial Estimate<br>Renu Management</td>
                         <td>6640 Charleston Drive</td>
@@ -507,6 +640,13 @@
                             <input type="text" class="units-input" data-address="6640 Charleston Drive" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('6640 Charleston Drive')">Save</button>
                             <span class="saved-message" id="saved-6640 Charleston Drive">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="6640 Charleston Drive" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('6640 Charleston Drive')">Save</button>
+                            <span class="saved-message" id="comment-saved-6640 Charleston Drive">Saved!</span>
                         </td>
                     </tr>
                 </tbody>
@@ -547,6 +687,13 @@
                             <span class="saved-message" id="saved-1303 W Phillips St, Alvin, TX 77511">Saved!</span>
                         </td>
                     </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="1303 W Phillips St, Alvin, TX 77511" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('1303 W Phillips St, Alvin, TX 77511')">Save</button>
+                            <span class="saved-message" id="comment-saved-1303 W Phillips St, Alvin, TX 77511">Saved!</span>
+                        </td>
+                    </tr>
                     <tr>
                         <td>Initial Inspection v109<br>House Fire</td>
                         <td>18903 Woodglen Shadows Dr, Humble, TX 77346</td>
@@ -562,6 +709,13 @@
                             <input type="text" class="units-input" data-address="18903 Woodglen Shadows Dr, Humble, TX 77346" placeholder="Enter units">
                             <button class="save-btn" onclick="saveUnits('18903 Woodglen Shadows Dr, Humble, TX 77346')">Save</button>
                             <span class="saved-message" id="saved-18903 Woodglen Shadows Dr, Humble, TX 77346">Saved!</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-row">
+                        <td colspan="8">
+                            <input type="text" class="comment-input" data-address="18903 Woodglen Shadows Dr, Humble, TX 77346" placeholder="Enter comments">
+                            <button class="save-btn" onclick="saveComment('18903 Woodglen Shadows Dr, Humble, TX 77346')">Save</button>
+                            <span class="saved-message" id="comment-saved-18903 Woodglen Shadows Dr, Humble, TX 77346">Saved!</span>
                         </td>
                     </tr>
                 </tbody>
@@ -580,20 +734,22 @@
         function sortTableByDueDate(tableId) {
             const table = document.getElementById(tableId);
             const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr:not(.units-row)'));
-            const rowPairs = [];
+            const rows = Array.from(tbody.querySelectorAll('tr:not(.units-row):not(.comment-row)')); // Exclude comment-rows
+            const rowGroups = [];
 
-            // Group each project row with its corresponding units row
+            // Group each project row with its corresponding units row and comment row
             for (let i = 0; i < rows.length; i++) {
                 const projectRow = rows[i];
                 const unitsRow = rows[i + 1] && rows[i + 1].classList.contains('units-row') ? rows[i + 1] : null;
-                rowPairs.push({ projectRow, unitsRow });
-                if (unitsRow) i++; // Skip the units row in the next iteration
+                const commentRow = rows[i + 2] && rows[i + 2].classList.contains('comment-row') ? rows[i + 2] : null;
+                rowGroups.push({ projectRow, unitsRow, commentRow });
+                if (unitsRow) i++; // Skip the units row
+                if (commentRow) i++; // Skip the comment row
             }
 
-            // Sort the row pairs by due date
-            rowPairs.sort((a, b) => {
-                // The 'Due' column is now at index 6 after removing 'Cost' (originally index 7)
+            // Sort the row groups by due date
+            rowGroups.sort((a, b) => {
+                // The 'Due' column is at index 6 after removing 'Cost'
                 const dateA = parseDate(a.projectRow.cells[6].textContent);
                 const dateB = parseDate(b.projectRow.cells[6].textContent);
                 return dateA - dateB;
@@ -601,21 +757,32 @@
 
             // Clear the tbody and re-append sorted rows
             tbody.innerHTML = '';
-            rowPairs.forEach(pair => {
-                tbody.appendChild(pair.projectRow);
-                if (pair.unitsRow) tbody.appendChild(pair.unitsRow);
+            rowGroups.forEach(group => {
+                tbody.appendChild(group.projectRow);
+                if (group.unitsRow) tbody.appendChild(group.unitsRow);
+                if (group.commentRow) tbody.appendChild(group.commentRow);
             });
         }
 
-        // Load saved units from localStorage and sort tables when the page loads
+        // Load saved units and comments from localStorage and sort tables when the page loads
         document.addEventListener('DOMContentLoaded', function() {
             // Load saved units
-            const inputs = document.querySelectorAll('.units-input');
-            inputs.forEach(input => {
+            const unitsInputs = document.querySelectorAll('.units-input');
+            unitsInputs.forEach(input => {
                 const address = input.getAttribute('data-address');
                 const savedUnits = localStorage.getItem(`units_${address}`);
                 if (savedUnits) {
                     input.value = savedUnits;
+                }
+            });
+
+            // Load saved comments
+            const commentInputs = document.querySelectorAll('.comment-input');
+            commentInputs.forEach(input => {
+                const address = input.getAttribute('data-address');
+                const savedComment = localStorage.getItem(`comment_${address}`);
+                if (savedComment) {
+                    input.value = savedComment;
                 }
             });
 
@@ -636,6 +803,19 @@
                     savedMessage.style.display = 'none';
                 }, 2000); // Hide message after 2 seconds
             }
+        }
+
+        // Save comments to localStorage and show "Saved!" message
+        function saveComment(address) {
+            const input = document.querySelector(`.comment-input[data-address="${address}"]`);
+            const value = input.value.trim();
+            // Allow saving empty comments to clear them
+            localStorage.setItem(`comment_${address}`, value);
+            const savedMessage = document.getElementById(`comment-saved-${address}`);
+            savedMessage.style.display = 'inline';
+            setTimeout(() => {
+                savedMessage.style.display = 'none';
+            }, 2000); // Hide message after 2 seconds
         }
     </script>
 </body>
