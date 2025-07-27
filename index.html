@@ -78,10 +78,10 @@
             text-decoration: none;
             cursor: pointer;
         }
-        .footer-text {
-            font-size: 10pt; /* Changed to 10pt */
-            text-align: left; /* Changed to align left */
-            margin-top: 30px;
+        .footer-text { /* Renamed from footer-text to revision-info for clarity, but keeping original class name for now if other CSS depends on it */
+            font-size: 10pt;
+            text-align: left;
+            margin-bottom: 10px; /* Added margin to separate from the image */
             color: #777;
         }
     </style>
@@ -89,6 +89,9 @@
 <body>
 
     <div class="container">
+        <div class="footer-text">
+            Updated: July 27, 2025 at 12:07:53 PM EDT
+        </div>
         <img src="bcm.jpg" alt="Birdsey Construction Management Logo" class="header-image">
 
         <div class="section reports-section">
@@ -112,10 +115,6 @@
             <span class="close-button">&times;</span>
             <p>Welcome! Links will open in a new window</p>
         </div>
-    </div>
-
-    <div class="footer-text">
-        Updated: July 27, 2025 at 12:05:18 PM EDT
     </div>
 
     <script>
