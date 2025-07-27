@@ -93,7 +93,7 @@
         .export-btn:hover {
             background-color: #1557b0;
         }
-        .units-input, .comment-input, .title-comment-input {
+        .comment-input { /* Only .comment-input remains */
             width: 80%;
             padding: 5px;
             margin: 5px 0;
@@ -111,7 +111,7 @@
         .save-btn:hover {
             background-color: #45a049;
         }
-        .units-row, .comment-row, .title-comment-row {
+        .comment-row { /* Only .comment-row remains */
             border: none;
         }
         .saved-message {
@@ -179,23 +179,9 @@
                         <td>07/11/2025</td>
                         <td>7/23/25 1:22 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="2112 Cumberland Road" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('2112 Cumberland Road')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-2112 Cumberland Road">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="2112 Cumberland Road" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('2112 Cumberland Road')">Save</button>
-                            <span class="saved-message" id="saved-2112 Cumberland Road">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="2112 Cumberland Road" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="2112 Cumberland Road" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('2112 Cumberland Road')">Save</button>
                             <span class="saved-message" id="comment-saved-2112 Cumberland Road">Saved!</span>
                         </td>
@@ -210,23 +196,9 @@
                         <td>07/17/2025</td>
                         <td>7/21/25 9:44 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="162 E Middleton Rd" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('162 E Middleton Rd')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-162 E Middleton Rd">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="162 E Middleton Rd" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('162 E Middleton Rd')">Save</button>
-                            <span class="saved-message" id="saved-162 E Middleton Rd">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="162 E Middleton Rd" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="162 E Middleton Rd" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('162 E Middleton Rd')">Save</button>
                             <span class="saved-message" id="comment-saved-162 E Middleton Rd">Saved!</span>
                         </td>
@@ -241,23 +213,9 @@
                         <td>07/23/2025</td>
                         <td>7/16/25 9:46 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="7831 Highway 113" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('7831 Highway 113')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-7831 Highway 113">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="7831 Highway 113" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('7831 Highway 113')">Save</button>
-                            <span class="saved-message" id="saved-7831 Highway 113">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="7831 Highway 113" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="7831 Highway 113" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('7831 Highway 113')">Save</button>
                             <span class="saved-message" id="comment-saved-7831 Highway 113">Saved!</span>
                         </td>
@@ -272,23 +230,9 @@
                         <td>07/24/2025</td>
                         <td>7/17/25 2:06 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="913 W Burton Street" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('913 W Burton Street')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-913 W Burton Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="913 W Burton Street" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('913 W Burton Street')">Save</button>
-                            <span class="saved-message" id="saved-913 W Burton Street">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="913 W Burton Street" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="913 W Burton Street" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('913 W Burton Street')">Save</button>
                             <span class="saved-message" id="comment-saved-913 W Burton Street">Saved!</span>
                         </td>
@@ -303,23 +247,9 @@
                         <td>07/25/2025</td>
                         <td>7/24/25 4:57 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="117 Fernwood" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('117 Fernwood')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-117 Fernwood">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="117 Fernwood" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('117 Fernwood')">Save</button>
-                            <span class="saved-message" id="saved-117 Fernwood">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="117 Fernwood" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="117 Fernwood" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('117 Fernwood')">Save</button>
                             <span class="saved-message" id="comment-saved-117 Fernwood">Saved!</span>
                         </td>
@@ -334,23 +264,9 @@
                         <td>07/25/2025</td>
                         <td>7/24/25 4:56 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="1333 S Perry St" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('1333 S Perry St')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-1333 S Perry St">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="1333 S Perry St" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('1333 S Perry St')">Save</button>
-                            <span class="saved-message" id="saved-1333 S Perry St">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="1333 S Perry St" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="1333 S Perry St" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('1333 S Perry St')">Save</button>
                             <span class="saved-message" id="comment-saved-1333 S Perry St">Saved!</span>
                         </td>
@@ -365,23 +281,9 @@
                         <td>07/25/2025</td>
                         <td>7/23/25 2:16 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="510 Shump Street" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('510 Shump Street')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-510 Shump Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="510 Shump Street" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('510 Shump Street')">Save</button>
-                            <span class="saved-message" id="saved-510 Shump Street">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="510 Shump Street" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="510 Shump Street" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('510 Shump Street')">Save</button>
                             <span class="saved-message" id="comment-saved-510 Shump Street">Saved!</span>
                         </td>
@@ -396,23 +298,9 @@
                         <td>07/25/2025</td>
                         <td>7/23/25 2:04 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="615 Briarcliff Road" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('615 Briarcliff Road')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-615 Briarcliff Road">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="615 Briarcliff Road" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('615 Briarcliff Road')">Save</button>
-                            <span class="saved-message" id="saved-615 Briarcliff Road">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="615 Briarcliff Road" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="615 Briarcliff Road" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('615 Briarcliff Road')">Save</button>
                             <span class="saved-message" id="comment-saved-615 Briarcliff Road">Saved!</span>
                         </td>
@@ -427,23 +315,9 @@
                         <td>07/25/2025</td>
                         <td>7/23/25 1:48 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="919 D Avenue" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('919 D Avenue')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-919 D Avenue">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="919 D Avenue" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('919 D Avenue')">Save</button>
-                            <span class="saved-message" id="saved-919 D Avenue">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="919 D Avenue" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="919 D Avenue" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('919 D Avenue')">Save</button>
                             <span class="saved-message" id="comment-saved-919 D Avenue">Saved!</span>
                         </td>
@@ -458,23 +332,9 @@
                         <td>07/25/2025</td>
                         <td>7/23/25 1:45 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('16949 Ravenna Road, Chagrin Falls 44023')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-16949 Ravenna Road, Chagrin Falls 44023">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('16949 Ravenna Road, Chagrin Falls 44023')">Save</button>
-                            <span class="saved-message" id="saved-16949 Ravenna Road, Chagrin Falls 44023">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('16949 Ravenna Road, Chagrin Falls 44023')">Save</button>
                             <span class="saved-message" id="comment-saved-16949 Ravenna Road, Chagrin Falls 44023">Saved!</span>
                         </td>
@@ -489,23 +349,9 @@
                         <td>07/25/2025</td>
                         <td>7/24/25 7:58 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="6276 Cedar Springs Road, New Paris 45347" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('6276 Cedar Springs Road, New Paris 45347')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-6276 Cedar Springs Road, New Paris 45347">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="6276 Cedar Springs Road, New Paris 45347" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('6276 Cedar Springs Road, New Paris 45347')">Save</button>
-                            <span class="saved-message" id="saved-6276 Cedar Springs Road, New Paris 45347">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="6276 Cedar Springs Road, New Paris 45347" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="6276 Cedar Springs Road, New Paris 45347" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('6276 Cedar Springs Road, New Paris 45347')">Save</button>
                             <span class="saved-message" id="comment-saved-6276 Cedar Springs Road, New Paris 45347">Saved!</span>
                         </td>
@@ -520,23 +366,9 @@
                         <td>07/25/2025</td>
                         <td>7/23/25 1:17 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="1743 E 31ST STREET" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('1743 E 31ST STREET')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-1743 E 31ST STREET">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="1743 E 31ST STREET" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('1743 E 31ST STREET')">Save</button>
-                            <span class="saved-message" id="saved-1743 E 31ST STREET">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="1743 E 31ST STREET" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="1743 E 31ST STREET" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('1743 E 31ST STREET')">Save</button>
                             <span class="saved-message" id="comment-saved-1743 E 31ST STREET">Saved!</span>
                         </td>
@@ -551,23 +383,9 @@
                         <td>07/25/2025</td>
                         <td>7/21/25 3:50 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="1102 Grand Street" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('1102 Grand Street')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-1102 Grand Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="1102 Grand Street" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('1102 Grand Street')">Save</button>
-                            <span class="saved-message" id="saved-1102 Grand Street">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="1102 Grand Street" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="1102 Grand Street" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('1102 Grand Street')">Save</button>
                             <span class="saved-message" id="comment-saved-1102 Grand Street">Saved!</span>
                         </td>
@@ -582,23 +400,9 @@
                         <td>07/28/2025</td>
                         <td>7/24/25 9:41 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="10065 LEMON LN" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('10065 LEMON LN')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-10065 LEMON LN">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="10065 LEMON LN" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('10065 LEMON LN')">Save</button>
-                            <span class="saved-message" id="saved-10065 LEMON LN">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="10065 LEMON LN" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="10065 LEMON LN" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('10065 LEMON LN')">Save</button>
                             <span class="saved-message" id="comment-saved-10065 LEMON LN">Saved!</span>
                         </td>
@@ -613,23 +417,9 @@
                         <td>07/28/2025</td>
                         <td>7/21/25 10:52 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="12085 1100 North" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('12085 1100 North')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-12085 1100 North">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="12085 1100 North" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('12085 1100 North')">Save</button>
-                            <span class="saved-message" id="saved-12085 1100 North">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="12085 1100 North" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="12085 1100 North" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('12085 1100 North')">Save</button>
                             <span class="saved-message" id="comment-saved-12085 1100 North">Saved!</span>
                         </td>
@@ -644,23 +434,9 @@
                         <td>07/31/2025</td>
                         <td>7/17/25 2:31 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="532 Donovan Rd" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('532 Donovan Rd')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-532 Donovan Rd">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="532 Donovan Rd" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('532 Donovan Rd')">Save</button>
-                            <span class="saved-message" id="saved-532 Donovan Rd">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="532 Donovan Rd" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="532 Donovan Rd" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('532 Donovan Rd')">Save</button>
                             <span class="saved-message" id="comment-saved-532 Donovan Rd">Saved!</span>
                         </td>
@@ -675,23 +451,9 @@
                         <td>07/31/2025</td>
                         <td>7/24/25 12:28 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="920 W Lagoon Ave A215" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('920 W Lagoon Ave A215')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-920 W Lagoon Ave A215">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="920 W Lagoon Ave A215" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('920 W Lagoon Ave A215')">Save</button>
-                            <span class="saved-message" id="saved-920 W Lagoon Ave A215">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="920 W Lagoon Ave A215" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="920 W Lagoon Ave A215" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('920 W Lagoon Ave A215')">Save</button>
                             <span class="saved-message" id="comment-saved-920 W Lagoon Ave A215">Saved!</span>
                         </td>
@@ -706,23 +468,9 @@
                         <td>07/31/2025</td>
                         <td>7/24/25 11:48 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="126 Southshore Dr" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('126 Southshore Dr')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-126 Southshore Dr">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="126 Southshore Dr" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('126 Southshore Dr')">Save</button>
-                            <span class="saved-message" id="saved-126 Southshore Dr">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="126 Southshore Dr" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="126 Southshore Dr" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('126 Southshore Dr')">Save</button>
                             <span class="saved-message" id="comment-saved-126 Southshore Dr">Saved!</span>
                         </td>
@@ -737,23 +485,9 @@
                         <td>08/01/2025</td>
                         <td>7/21/25 9:23 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="4234 Watkins Road" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('4234 Watkins Road')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-4234 Watkins Road">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="4234 Watkins Road" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('4234 Watkins Road')">Save</button>
-                            <span class="saved-message" id="saved-4234 Watkins Road">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="4234 Watkins Road" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="4234 Watkins Road" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('4234 Watkins Road')">Save</button>
                             <span class="saved-message" id="comment-saved-4234 Watkins Road">Saved!</span>
                         </td>
@@ -768,23 +502,9 @@
                         <td>08/06/2025</td>
                         <td>7/23/25 8:38 AM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="6640 Charleston Drive" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('6640 Charleston Drive')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-6640 Charleston Drive">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="6640 Charleston Drive" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('6640 Charleston Drive')">Save</button>
-                            <span class="saved-message" id="saved-6640 Charleston Drive">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="6640 Charleston Drive" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="6640 Charleston Drive" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('6640 Charleston Drive')">Save</button>
                             <span class="saved-message" id="comment-saved-6640 Charleston Drive">Saved!</span>
                         </td>
@@ -820,23 +540,9 @@
                         <td>07/24/2025</td>
                         <td>7/24/25 3:16 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="1303 W Phillips St, Alvin, TX 77511" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('1303 W Phillips St, Alvin, TX 77511')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-1303 W Phillips St, Alvin, TX 77511">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="1303 W Phillips St, Alvin, TX 77511" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('1303 W Phillips St, Alvin, TX 77511')">Save</button>
-                            <span class="saved-message" id="saved-1303 W Phillips St, Alvin, TX 77511">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="1303 W Phillips St, Alvin, TX 77511" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="1303 W Phillips St, Alvin, TX 77511" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('1303 W Phillips St, Alvin, TX 77511')">Save</button>
                             <span class="saved-message" id="comment-saved-1303 W Phillips St, Alvin, TX 77511">Saved!</span>
                         </td>
@@ -851,23 +557,9 @@
                         <td>08/01/2025</td>
                         <td>7/16/25 7:49 PM</td>
                     </tr>
-                    <tr class="title-comment-row">
-                        <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="18903 Woodglen Shadows Dr, Humble, TX 77346" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('18903 Woodglen Shadows Dr, Humble, TX 77346')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-18903 Woodglen Shadows Dr, Humble, TX 77346">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr class="units-row">
-                        <td colspan="8">
-                            <input type="text" class="units-input" data-address="18903 Woodglen Shadows Dr, Humble, TX 77346" placeholder="Enter units">
-                            <button class="save-btn" onclick="saveUnits('18903 Woodglen Shadows Dr, Humble, TX 77346')">Save</button>
-                            <span class="saved-message" id="saved-18903 Woodglen Shadows Dr, Humble, TX 77346">Saved!</span>
-                        </td>
-                    </tr>
                     <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="comment-input" data-address="18903 Woodglen Shadows Dr, Humble, TX 77346" placeholder="Enter comments">
+                            <input type="text" class="comment-input" data-address="18903 Woodglen Shadows Dr, Humble, TX 77346" placeholder="Comments">
                             <button class="save-btn" onclick="saveComment('18903 Woodglen Shadows Dr, Humble, TX 77346')">Save</button>
                             <span class="saved-message" id="comment-saved-18903 Woodglen Shadows Dr, Humble, TX 77346">Saved!</span>
                         </td>
@@ -902,11 +594,11 @@
                         <td>N/A</td>
                         <td>N/A</td>
                     </tr>
-                    <tr class="title-comment-row">
+                    <tr class="comment-row">
                         <td colspan="8">
-                            <input type="text" class="title-comment-input" data-address="3433 Foxbriar Ln Schertz, TX 78154" placeholder="Enter title comments">
-                            <button class="save-btn" onclick="saveTitleComment('3433 Foxbriar Ln Schertz, TX 78154')">Save</button>
-                            <span class="saved-message" id="title-comment-saved-3433 Foxbriar Ln Schertz, TX 78154">Saved!</span>
+                            <input type="text" class="comment-input" data-address="3433 Foxbriar Ln Schertz, TX 78154" placeholder="Comments">
+                            <button class="save-btn" onclick="saveComment('3433 Foxbriar Ln Schertz, TX 78154')">Save</button>
+                            <span class="saved-message" id="comment-saved-3433 Foxbriar Ln Schertz, TX 78154">Saved!</span>
                         </td>
                     </tr>
                 </tbody>
@@ -926,7 +618,7 @@
             const table = document.getElementById(tableId);
             const tbody = table.querySelector('tbody');
             // Select only the primary project/inspection rows for sorting
-            const rows = Array.from(tbody.querySelectorAll('tr:not(.units-row):not(.comment-row):not(.title-comment-row)'));
+            const rows = Array.from(tbody.querySelectorAll('tr:not(.comment-row)')); // Exclude comment-rows
             const rowGroups = [];
 
             // Group each main row with its associated input rows based on tableId
@@ -934,21 +626,9 @@
                 const group = { projectRow };
                 let nextSibling = projectRow.nextElementSibling;
 
-                // Check for title-comment row
-                if (nextSibling && nextSibling.classList.contains('title-comment-row')) {
-                    group.titleCommentRow = nextSibling;
-                    nextSibling = nextSibling.nextElementSibling;
-                }
-
-                // Only check for units and comments if not in 'pending-data-table'
-                if (tableId !== 'pending-data-table') {
-                    if (nextSibling && nextSibling.classList.contains('units-row')) {
-                        group.unitsRow = nextSibling;
-                        nextSibling = nextSibling.nextElementSibling;
-                    }
-                    if (nextSibling && nextSibling.classList.contains('comment-row')) {
-                        group.commentRow = nextSibling;
-                    }
+                // Check for comment row
+                if (nextSibling && nextSibling.classList.contains('comment-row')) {
+                    group.commentRow = nextSibling;
                 }
                 rowGroups.push(group);
             });
@@ -968,24 +648,12 @@
             tbody.innerHTML = '';
             rowGroups.forEach(group => {
                 tbody.appendChild(group.projectRow);
-                if (group.titleCommentRow) tbody.appendChild(group.titleCommentRow);
-                if (group.unitsRow) tbody.appendChild(group.unitsRow);
                 if (group.commentRow) tbody.appendChild(group.commentRow);
             });
         }
 
-        // Load saved units, comments, and title comments from localStorage and sort tables when the page loads
+        // Load saved comments from localStorage and sort tables when the page loads
         document.addEventListener('DOMContentLoaded', function() {
-            // Load saved units
-            const unitsInputs = document.querySelectorAll('.units-input');
-            unitsInputs.forEach(input => {
-                const address = input.getAttribute('data-address');
-                const savedUnits = localStorage.getItem(`units_${address}`);
-                if (savedUnits) {
-                    input.value = savedUnits;
-                }
-            });
-
             // Load saved comments
             const commentInputs = document.querySelectorAll('.comment-input');
             commentInputs.forEach(input => {
@@ -996,36 +664,12 @@
                 }
             });
 
-            // Load saved title comments
-            const titleCommentInputs = document.querySelectorAll('.title-comment-input');
-            titleCommentInputs.forEach(input => {
-                const address = input.getAttribute('data-address');
-                // Use a unique key for title comments, e.g., 'title_comment_address'
-                const savedTitleComment = localStorage.getItem(`title_comment_${address}`);
-                if (savedTitleComment) {
-                    input.value = savedTitleComment;
-                }
-            });
-
             // Sort all tables
             sortTableByDueDate('project-details-table');
             sortTableByDueDate('maymont-table');
             // No sorting for 'pending-data-table' as it has N/A for Due date
         });
 
-        // Save units to localStorage and show "Saved!" message
-        function saveUnits(address) {
-            const input = document.querySelector(`.units-input[data-address="${address}"]`);
-            const value = input.value.trim();
-            if (value) {
-                localStorage.setItem(`units_${address}`, value);
-                const savedMessage = document.getElementById(`saved-${address}`);
-                savedMessage.style.display = 'inline';
-                setTimeout(() => {
-                    savedMessage.style.display = 'none';
-                }, 2000); // Hide message after 2 seconds
-            }
-        }
 
         // Save comments to localStorage and show "Saved!" message
         function saveComment(address) {
@@ -1034,19 +678,6 @@
             // Allow saving empty comments to clear them
             localStorage.setItem(`comment_${address}`, value);
             const savedMessage = document.getElementById(`comment-saved-${address}`);
-            savedMessage.style.display = 'inline';
-            setTimeout(() => {
-                savedMessage.style.display = 'none';
-            }, 2000); // Hide message after 2 seconds
-        }
-
-        // Save title comments to localStorage and show "Saved!" message
-        function saveTitleComment(address) {
-            const input = document.querySelector(`.title-comment-input[data-address="${address}"]`);
-            const value = input.value.trim();
-            // Use a unique key for title comments
-            localStorage.setItem(`title_comment_${address}`, value);
-            const savedMessage = document.getElementById(`title-comment-saved-${address}`);
             savedMessage.style.display = 'inline';
             setTimeout(() => {
                 savedMessage.style.display = 'none';
