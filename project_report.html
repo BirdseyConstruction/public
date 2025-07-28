@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -146,15 +107,16 @@
         <h1>Birdsey Master Report</h1>
         <a href="https://birdseyconstruction.github.io/public/index.html" class="bcm-button">BCM Reports</a>
     </div>
-    <div class="revision-info">Last revised by Grok: 04:46 PM EDT, Monday, July 28, 2025</div>
+    <div class="revision-info">Last revised by Grok: 05:06 PM EDT, Monday, July 28, 2025</div>
     <div class="filter-container">
-        <select id="typeFilter" onchange="filterTable()">
-            <option value="">All Types</option>
-            <option value="Project / Contract">Project / Contract</option>
-            <option value="Initial Estimate">Initial Estimate</option>
-            <option value="Change Order">Change Order</option>
-            <option value="CO Submitted (DO NOT EDIT)">CO Submitted</option>
-            <option value="EST Submitted (DO NOT EDIT)">EST Submitted</option>
+        <select id="statusFilter" onchange="filterTable()">
+            <option value="">All Statuses</option>
+            <option value="Field Review">Field Review</option>
+            <option value="Estimate Review">Estimate Review</option>
+            <option value="Bid Modification">Bid Modification</option>
+            <option value="Submitted">Submitted</option>
+            <option value="Contracts">Contracts</option>
+            <option value="Under Construction">Under Construction</option>
         </select>
         <select id="stateFilter" onchange="filterTable()">
             <option value="">All States</option>
@@ -552,7 +514,7 @@
         }
 
         function filterTable() {
-            const typeFilter = document.getElementById('typeFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
             const stateFilter = document.getElementById('stateFilter').value;
             const searchInput = document.getElementById('searchInput').value.toLowerCase();
             const sections = document.getElementsByClassName('client-section');
@@ -569,17 +531,14 @@
                     const address = cells[1].textContent.toLowerCase();
                     const state = cells[2].textContent;
                     const assigned = cells[3].textContent.toLowerCase();
-                    const type = title.includes('Fannie Mae') || title.includes('Freddie Mac') || title.includes('Renu Management') || title.includes('Sunrise') ? 'Project / Contract' :
-                                 title.includes('CO Submitted') ? 'CO Submitted (DO NOT EDIT)' :
-                                 title.includes('EST Submitted') ? 'EST Submitted (DO NOT EDIT)' :
-                                 title.includes('Change Order') ? 'Change Order' : 'Initial Estimate';
+                    const status = cells[4].textContent;
 
-                    const matchesType = !typeFilter || type === typeFilter;
+                    const matchesStatus = !statusFilter || status === statusFilter;
                     const matchesState = !stateFilter || state === stateFilter;
                     const matchesSearch = !searchInput || title.includes(searchInput) || address.includes(searchInput) || assigned.includes(searchInput);
 
-                    row.style.display = matchesType && matchesState && matchesSearch ? '' : 'none';
-                    if (matchesType && matchesState && matchesSearch) hasVisibleRows = true;
+                    row.style.display = matchesStatus && matchesState && matchesSearch ? '' : 'none';
+                    if (matchesStatus && matchesState && matchesSearch) hasVisibleRows = true;
                 }
 
                 section.style.display = hasVisibleRows ? '' : 'none';
