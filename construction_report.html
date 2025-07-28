@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -94,6 +55,42 @@
         .analysis li {
             margin-bottom: 10px;
         }
+        #reportContent {
+            display: none;
+        }
+        #passwordFormContainer {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+        #passwordFormContainer input[type="password"] {
+            padding: 10px;
+            width: 200px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #passwordFormContainer button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #passwordFormContainer button:hover {
+            background-color: #0056b3;
+        }
+        #passwordError {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
         @media print {
             body {
                 background: white;
@@ -101,349 +98,382 @@
             .summary, .data, .analysis {
                 box-shadow: none;
             }
+            #passwordFormContainer {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Under Construction Report</h1>
-    <div class="subheader">Updated: July 28, 2025, 5:34 PM EDT</div>
+    <div id="passwordFormContainer">
+        <form id="passwordForm">
+            <p>Please enter the password to view the report:</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="passwordError">Incorrect password. Please try again.</div>
+    </div>
+    <div id="reportContent">
+        <h1>Under Construction Report</h1>
+        <div class="subheader">Updated: July 28, 2025, 5:46 PM EDT</div>
 
-    <div class="summary">
-        <h2>Summary</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Market</th>
-                    <th>Avg Renovation Estimate</th>
-                    <th>Avg Vendor Contract</th>
-                    <th>Total Renovation Estimate</th>
-                    <th>Total Vendor Contract</th>
-                    <th>Plumbing Sub-total</th>
-                    <th>HVAC Sub-total</th>
-                    <th>Electrical Sub-total</th>
-                    <th>Roof Work Sub-total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>AL (6)</td>
-                    <td>$24,862.46</td>
-                    <td>$18,109.53</td>
-                    <td>$149,174.76</td>
-                    <td>$108,657.20</td>
-                    <td>$4,671.42</td>
-                    <td>$1,980.00</td>
-                    <td>$62,706.36</td>
-                    <td>$0.00</td>
-                </tr>
-                <tr>
-                    <td>AR (5)</td>
-                    <td>$48,217.94</td>
-                    <td>$32,379.16</td>
-                    <td>$241,089.71</td>
-                    <td>$161,895.79</td>
-                    <td>$12,707.00</td>
-                    <td>$25,725.00</td>
-                    <td>$6,367.85</td>
-                    <td>$69,734.94</td>
-                </tr>
-                <tr>
-                    <td>GA (1)</td>
-                    <td>$5,263.16</td>
-                    <td>$3,000.00</td>
-                    <td>$5,263.16</td>
-                    <td>$3,000.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                </tr>
-                <tr>
-                    <td>IN (1)</td>
-                    <td>$6,668.00</td>
-                    <td>$4,801.00</td>
-                    <td>$6,668.00</td>
-                    <td>$4,801.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                </tr>
-                <tr>
-                    <td>LA (1)</td>
-                    <td>$145,924.11</td>
-                    <td>$97,241.67</td>
-                    <td>$145,924.11</td>
-                    <td>$97,241.67</td>
-                    <td>$0.00</td>
-                    <td>$14,750.00</td>
-                    <td>$32,560.00</td>
-                    <td>$0.00</td>
-                </tr>
-                <tr>
-                    <td>OH (3)</td>
-                    <td>$29,468.84</td>
-                    <td>$20,439.86</td>
-                    <td>$88,406.53</td>
-                    <td>$61,319.58</td>
-                    <td>$7,008.81</td>
-                    <td>$190.00</td>
-                    <td>$8,963.20</td>
-                    <td>$13,350.68</td>
-                </tr>
-                <tr>
-                    <td>TX (8)</td>
-                    <td>$27,875.01</td>
-                    <td>$18,830.11</td>
-                    <td>$223,000.04</td>
-                    <td>$150,640.90</td>
-                    <td>$3,978.66</td>
-                    <td>$15,058.94</td>
-                    <td>$23,950.85</td>
-                    <td>$43,012.58</td>
-                </tr>
-                <tr>
-                    <td>All (25)</td>
-                    <td>$34,381.05</td>
-                    <td>$23,502.25</td>
-                    <td>$859,526.31</td>
-                    <td>$587,556.14</td>
-                    <td>$28,365.89</td>
-                    <td>$57,703.94</td>
-                    <td>$134,548.26</td>
-                    <td>$126,098.20</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="summary">
+            <h2>Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Market</th>
+                        <th>Avg Renovation Estimate</th>
+                        <th>Avg Vendor Contract</th>
+                        <th>Total Renovation Estimate</th>
+                        <th>Total Vendor Contract</th>
+                        <th>Plumbing Sub-total</th>
+                        <th>HVAC Sub-total</th>
+                        <th>Electrical Sub-total</th>
+                        <th>Roof Work Sub-total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AL (6)</td>
+                        <td>$24,862.46</td>
+                        <td>$18,109.53</td>
+                        <td>$149,174.76</td>
+                        <td>$108,657.20</td>
+                        <td>$4,671.42</td>
+                        <td>$1,980.00</td>
+                        <td>$62,706.36</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>AR (5)</td>
+                        <td>$48,217.94</td>
+                        <td>$32,379.16</td>
+                        <td>$241,089.71</td>
+                        <td>$161,895.79</td>
+                        <td>$12,707.00</td>
+                        <td>$25,725.00</td>
+                        <td>$6,367.85</td>
+                        <td>$69,734.94</td>
+                    </tr>
+                    <tr>
+                        <td>GA (1)</td>
+                        <td>$5,263.16</td>
+                        <td>$3,000.00</td>
+                        <td>$5,263.16</td>
+                        <td>$3,000.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>IN (1)</td>
+                        <td>$6,668.00</td>
+                        <td>$4,801.00</td>
+                        <td>$6,668.00</td>
+                        <td>$4,801.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>LA (1)</td>
+                        <td>$145,924.11</td>
+                        <td>$97,241.67</td>
+                        <td>$145,924.11</td>
+                        <td>$97,241.67</td>
+                        <td>$0.00</td>
+                        <td>$14,750.00</td>
+                        <td>$32,560.00</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>OH (3)</td>
+                        <td>$29,468.84</td>
+                        <td>$20,439.86</td>
+                        <td>$88,406.53</td>
+                        <td>$61,319.58</td>
+                        <td>$7,008.81</td>
+                        <td>$190.00</td>
+                        <td>$8,963.20</td>
+                        <td>$13,350.68</td>
+                    </tr>
+                    <tr>
+                        <td>TX (8)</td>
+                        <td>$27,875.01</td>
+                        <td>$18,830.11</td>
+                        <td>$223,000.04</td>
+                        <td>$150,640.90</td>
+                        <td>$3,978.66</td>
+                        <td>$15,058.94</td>
+                        <td>$23,950.85</td>
+                        <td>$43,012.58</td>
+                    </tr>
+                    <tr>
+                        <td>All (25)</td>
+                        <td>$34,381.05</td>
+                        <td>$23,502.25</td>
+                        <td>$859,526.31</td>
+                        <td>$587,556.14</td>
+                        <td>$28,365.89</td>
+                        <td>$57,703.94</td>
+                        <td>$134,548.26</td>
+                        <td>$126,098.20</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="analysis">
+            <h2>Analysis</h2>
+            <ul>
+                <li><strong>Cost Efficiency</strong>: Vendor contracts average 68.4% of renovation estimates, yielding a 31.6% profit margin. Louisiana (33.3%) and Georgia (43.0%) maintain strong margins, with GA ideal for cost-efficient smaller projects.</li>
+                <li><strong>Market Performance</strong>: Arkansas leads with $241,089.71 in total estimates, while Texas has the most projects (8, $223,000.04). Ohio’s growth to 3 projects ($88,406.53) indicates increasing activity.</li>
+                <li><strong>Subcontractor Costs</strong>: Electrical ($134,548.26) and roofing ($126,098.20) dominate, with significant costs in Alabama and Arkansas. Plumbing and HVAC remain low, with no activity in GA or IN.</li>
+                <li><strong>Client Distribution</strong>: Fannie Mae dominates (17 of 25 projects), with new projects in Ohio and Texas. Texas shows diverse clients (Fannie Mae, Freddie Mac, Renu Management).</li>
+                <li><strong>Recommendations</strong>: Prioritize Louisiana and Ohio for high margins, expand in Texas, explore Georgia and Indiana for growth, negotiate electrical and roofing costs, and verify duplicate entries (AL, TX, OH).</li>
+            </ul>
+        </div>
+
+        <div class="data">
+            <h2>Data</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Client Account</th>
+                        <th>Market</th>
+                        <th>Property Street Address</th>
+                        <th>Total Renovation Estimate</th>
+                        <th>Total Vendor Contract</th>
+                        <th>Assignment Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>AL</td>
+                        <td>2809 N COUNTY ROAD 19</td>
+                        <td>$11,249.42</td>
+                        <td>$7,520.57</td>
+                        <td>5/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>AR</td>
+                        <td>7512 Shady Grove Road</td>
+                        <td>$84,816.54</td>
+                        <td>$56,602.66</td>
+                        <td>5/20/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>AR</td>
+                        <td>6531 Forrest Oak Dr</td>
+                        <td>$58,637.83</td>
+                        <td>$39,692.54</td>
+                        <td>5/8/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>AR</td>
+                        <td>7512 Shady Grove Road</td>
+                        <td>$2,190.00</td>
+                        <td>$1,500.00</td>
+                        <td>5/20/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>TX</td>
+                        <td>321 Barkley Street</td>
+                        <td>$56,384.20</td>
+                        <td>$38,724.08</td>
+                        <td>4/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>OH</td>
+                        <td>117 Fernwood</td>
+                        <td>$68,765.77</td>
+                        <td>$46,809.28</td>
+                        <td>4/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>TX</td>
+                        <td>8870 North Street</td>
+                        <td>$104,224.46</td>
+                        <td>$69,491.00</td>
+                        <td>4/15/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae</td>
+                        <td>AL</td>
+                        <td>2809 N COUNTY ROAD 19</td>
+                        <td>$801.00</td>
+                        <td>$536.81</td>
+                        <td>5/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (A25006M)</td>
+                        <td>AL</td>
+                        <td>5604 5TH STREET SOUTH</td>
+                        <td>$49,783.94</td>
+                        <td>$33,791.61</td>
+                        <td>6/6/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (A25006M)</td>
+                        <td>AL</td>
+                        <td>5604 5TH STREET SOUTH</td>
+                        <td>$49,783.94</td>
+                        <td>$33,791.61</td>
+                        <td>6/6/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (D1902X9)</td>
+                        <td>TX</td>
+                        <td>2100 HOME SHOW LN</td>
+                        <td>$7,307.69</td>
+                        <td>$4,750.00</td>
+                        <td>6/18/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (D2400M4)</td>
+                        <td>AR</td>
+                        <td>1102 Grand Ave</td>
+                        <td>$66,821.50</td>
+                        <td>$44,269.03</td>
+                        <td>4/11/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (D25005K)</td>
+                        <td>LA</td>
+                        <td>1358 ANITA ST</td>
+                        <td>$145,924.11</td>
+                        <td>$97,241.67</td>
+                        <td>5/27/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (POST CO)</td>
+                        <td>TX</td>
+                        <td>2510 Lazy Lake Drive</td>
+                        <td>$10,435.26</td>
+                        <td>$7,068.80</td>
+                        <td>7/3/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (POST CO)</td>
+                        <td>TX</td>
+                        <td>2510 Lazy Lake Drive</td>
+                        <td>$10,435.26</td>
+                        <td>$7,068.80</td>
+                        <td>7/3/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (Pre-FCL)</td>
+                        <td>OH</td>
+                        <td>715 E Catawba Ave</td>
+                        <td>$9,820.38</td>
+                        <td>$7,255.15</td>
+                        <td>7/17/25</td>
+                    </tr>
+                    <tr>
+                        <td>Fannie Mae (Pre-FCL)</td>
+                        <td>OH</td>
+                        <td>715 E Catawba Ave</td>
+                        <td>$9,820.38</td>
+                        <td>$7,255.15</td>
+                        <td>7/17/25</td>
+                    </tr>
+                    <tr>
+                        <td>Freddie Mac</td>
+                        <td>TX</td>
+                        <td>702 E Mesquite LN</td>
+                        <td>$5,830.29</td>
+                        <td>$3,993.75</td>
+                        <td>5/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Freddie Mac (1294204)</td>
+                        <td>TX</td>
+                        <td>749 HWY 315 SOUTH</td>
+                        <td>$28,382.88</td>
+                        <td>$19,544.47</td>
+                        <td>6/27/25</td>
+                    </tr>
+                    <tr>
+                        <td>Freddie Mac (1295143)</td>
+                        <td>AR</td>
+                        <td>1201 Summit Dr</td>
+                        <td>$28,623.84</td>
+                        <td>$19,831.56</td>
+                        <td>6/27/25</td>
+                    </tr>
+                    <tr>
+                        <td>Freddie Mac (1297143)</td>
+                        <td>AL</td>
+                        <td>103 Barbary Place</td>
+                        <td>$4,051.46</td>
+                        <td>$2,837.40</td>
+                        <td>6/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Freddie Mac 1297143</td>
+                        <td>AL</td>
+                        <td>103 Barbary Place</td>
+                        <td>$33,505.00</td>
+                        <td>$30,179.20</td>
+                        <td>6/16/25</td>
+                    </tr>
+                    <tr>
+                        <td>Renu Management</td>
+                        <td>TX</td>
+                        <td>309 Sunnymeade Ln</td>
+                        <td>$0.00</td>
+                        <td>$0.00</td>
+                        <td>7/28/25</td>
+                    </tr>
+                    <tr>
+                        <td>Shannon Woods (Lawn Maintenance Estimate)</td>
+                        <td>GA</td>
+                        <td>6370 Shannon Parkway</td>
+                        <td>$5,263.16</td>
+                        <td>$3,000.00</td>
+                        <td>--</td>
+                    </tr>
+                    <tr>
+                        <td>Sunrise</td>
+                        <td>IN</td>
+                        <td>5715 Heatherview</td>
+                        <td>$6,668.00</td>
+                        <td>$4,801.00</td>
+                        <td>6/23/25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="analysis">
-        <h2>Analysis</h2>
-        <ul>
-            <li><strong>Cost Efficiency</strong>: Vendor contracts average 68.4% of renovation estimates, yielding a 31.6% profit margin. Louisiana (33.3%) and Georgia (43.0%) maintain strong margins, with GA ideal for cost-efficient smaller projects.</li>
-            <li><strong>Market Performance</strong>: Arkansas leads with $241,089.71 in total estimates, while Texas has the most projects (8, $223,000.04). Ohio’s growth to 3 projects ($88,406.53) indicates increasing activity.</li>
-            <li><strong>Subcontractor Costs</strong>: Electrical ($134,548.26) and roofing ($126,098.20) dominate, with significant costs in Alabama and Arkansas. Plumbing and HVAC remain low, with no activity in GA or IN.</li>
-            <li><strong>Client Distribution</strong>: Fannie Mae dominates (17 of 25 projects), with new projects in Ohio and Texas. Texas shows diverse clients (Fannie Mae, Freddie Mac, Renu Management).</li>
-            <li><strong>Recommendations</strong>: Prioritize Louisiana and Ohio for high margins, expand in Texas, explore Georgia and Indiana for growth, negotiate electrical and roofing costs, and verify duplicate entries (AL, TX, OH).</li>
-        </ul>
-    </div>
+    <script>
+        const correctPassword = "Construction2025";
+        const passwordForm = document.getElementById("passwordForm");
+        const passwordInput = document.getElementById("passwordInput");
+        const passwordError = document.getElementById("passwordError");
+        const reportContent = document.getElementById("reportContent");
+        const passwordFormContainer = document.getElementById("passwordFormContainer");
 
-    <div class="data">
-        <h2>Data</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Client Account</th>
-                    <th>Market</th>
-                    <th>Property Street Address</th>
-                    <th>Total Renovation Estimate</th>
-                    <th>Total Vendor Contract</th>
-                    <th>Assignment Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>AL</td>
-                    <td>2809 N COUNTY ROAD 19</td>
-                    <td>$11,249.42</td>
-                    <td>$7,520.57</td>
-                    <td>5/16/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>AR</td>
-                    <td>7512 Shady Grove Road</td>
-                    <td>$84,816.54</td>
-                    <td>$56,602.66</td>
-                    <td>5/20/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>AR</td>
-                    <td>6531 Forrest Oak Dr</td>
-                    <td>$58,637.83</td>
-                    <td>$39,692.54</td>
-                    <td>5/8/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>AR</td>
-                    <td>7512 Shady Grove Road</td>
-                    <td>$2,190.00</td>
-                    <td>$1,500.00</td>
-                    <td>5/20/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>TX</td>
-                    <td>321 Barkley Street</td>
-                    <td>$56,384.20</td>
-                    <td>$38,724.08</td>
-                    <td>4/16/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>OH</td>
-                    <td>117 Fernwood</td>
-                    <td>$68,765.77</td>
-                    <td>$46,809.28</td>
-                    <td>4/16/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>TX</td>
-                    <td>8870 North Street</td>
-                    <td>$104,224.46</td>
-                    <td>$69,491.00</td>
-                    <td>4/15/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae</td>
-                    <td>AL</td>
-                    <td>2809 N COUNTY ROAD 19</td>
-                    <td>$801.00</td>
-                    <td>$536.81</td>
-                    <td>5/16/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (A25006M)</td>
-                    <td>AL</td>
-                    <td>5604 5TH STREET SOUTH</td>
-                    <td>$49,783.94</td>
-                    <td>$33,791.61</td>
-                    <td>6/6/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (A25006M)</td>
-                    <td>AL</td>
-                    <td>5604 5TH STREET SOUTH</td>
-                    <td>$49,783.94</td>
-                    <td>$33,791.61</td>
-                    <td>6/6/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (D1902X9)</td>
-                    <td>TX</td>
-                    <td>2100 HOME SHOW LN</td>
-                    <td>$7,307.69</td>
-                    <td>$4,750.00</td>
-                    <td>6/18/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (D2400M4)</td>
-                    <td>AR</td>
-                    <td>1102 Grand Ave</td>
-                    <td>$66,821.50</td>
-                    <td>$44,269.03</td>
-                    <td>4/11/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (D25005K)</td>
-                    <td>LA</td>
-                    <td>1358 ANITA ST</td>
-                    <td>$145,924.11</td>
-                    <td>$97,241.67</td>
-                    <td>5/27/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (POST CO)</td>
-                    <td>TX</td>
-                    <td>2510 Lazy Lake Drive</td>
-                    <td>$10,435.26</td>
-                    <td>$7,068.80</td>
-                    <td>7/3/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (POST CO)</td>
-                    <td>TX</td>
-                    <td>2510 Lazy Lake Drive</td>
-                    <td>$10,435.26</td>
-                    <td>$7,068.80</td>
-                    <td>7/3/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (Pre-FCL)</td>
-                    <td>OH</td>
-                    <td>715 E Catawba Ave</td>
-                    <td>$9,820.38</td>
-                    <td>$7,255.15</td>
-                    <td>7/17/25</td>
-                </tr>
-                <tr>
-                    <td>Fannie Mae (Pre-FCL)</td>
-                    <td>OH</td>
-                    <td>715 E Catawba Ave</td>
-                    <td>$9,820.38</td>
-                    <td>$7,255.15</td>
-                    <td>7/17/25</td>
-                </tr>
-                <tr>
-                    <td>Freddie Mac</td>
-                    <td>TX</td>
-                    <td>702 E Mesquite LN</td>
-                    <td>$5,830.29</td>
-                    <td>$3,993.75</td>
-                    <td>5/16/25</td>
-                </tr>
-                <tr>
-                    <td>Freddie Mac (1294204)</td>
-                    <td>TX</td>
-                    <td>749 HWY 315 SOUTH</td>
-                    <td>$28,382.88</td>
-                    <td>$19,544.47</td>
-                    <td>6/27/25</td>
-                </tr>
-                <tr>
-                    <td>Freddie Mac (1295143)</td>
-                    <td>AR</td>
-                    <td>1201 Summit Dr</td>
-                    <td>$28,623.84</td>
-                    <td>$19,831.56</td>
-                    <td>6/27/25</td>
-                </tr>
-                <tr>
-                    <td>Freddie Mac (1297143)</td>
-                    <td>AL</td>
-                    <td>103 Barbary Place</td>
-                    <td>$4,051.46</td>
-                    <td>$2,837.40</td>
-                    <td>6/16/25</td>
-                </tr>
-                <tr>
-                    <td>Freddie Mac 1297143</td>
-                    <td>AL</td>
-                    <td>103 Barbary Place</td>
-                    <td>$33,505.00</td>
-                    <td>$30,179.20</td>
-                    <td>6/16/25</td>
-                </tr>
-                <tr>
-                    <td>Renu Management</td>
-                    <td>TX</td>
-                    <td>309 Sunnymeade Ln</td>
-                    <td>$0.00</td>
-                    <td>$0.00</td>
-                    <td>7/28/25</td>
-                </tr>
-                <tr>
-                    <td>Shannon Woods (Lawn Maintenance Estimate)</td>
-                    <td>GA</td>
-                    <td>6370 Shannon Parkway</td>
-                    <td>$5,263.16</td>
-                    <td>$3,000.00</td>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <td>Sunrise</td>
-                    <td>IN</td>
-                    <td>5715 Heatherview</td>
-                    <td>$6,668.00</td>
-                    <td>$4,801.00</td>
-                    <td>6/23/25</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        passwordForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            if (passwordInput.value === correctPassword) {
+                reportContent.style.display = "block";
+                passwordFormContainer.style.display = "none";
+            } else {
+                passwordError.style.display = "block";
+                passwordInput.value = "";
+            }
+        });
+    </script>
 </body>
 </html>
