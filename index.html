@@ -3,144 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birdsey Construction Management</title>
+    <title>Birdseye Construction Management</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin-top: 50px;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
         }
-        .container {
-            width: 80%; /* Set a max width for content */
-            margin: 0 auto; /* Center the container itself */
-            text-align: left; /* Align content inside the container to the left */
+        header {
+            margin-bottom: 40px;
         }
-        .header-image {
-            display: block; /* Make the image a block element */
-            max-width: 100%; /* Ensure the image is responsive */
+        img {
+            max-width: 300px;
             height: auto;
         }
-        .section { /* Generic style for sections to reuse */
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+        section {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .section h2 {
-            color: #555;
-            margin-bottom: 15px;
+        h1 {
+            color: #006400; /* Dark green to match the logo */
+            font-size: 2em;
         }
-        .section ul {
-            list-style: none;
-            padding: 0;
+        p {
+            line-height: 1.6;
+            color: #333;
         }
-        .section li {
-            margin-bottom: 10px;
-        }
-        .section a {
-            color: #007bff;
+        a {
+            color: #006400;
             text-decoration: none;
         }
-        .section a:hover {
+        a:hover {
             text-decoration: underline;
         }
-
-        /* Popup styles */
-        .popup {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-        .popup-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            max-width: 400px; /* Max width for larger screens */
-            text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        }
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .footer-text { /* Renamed from footer-text to revision-info for clarity, but keeping original class name for now if other CSS depends on it */
-            font-size: 10pt;
-            text-align: left;
-            margin-bottom: 10px; /* Added margin to separate from the image */
-            color: #777;
+        .timestamp {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <div class="footer-text">
-            Updated: July 27, 2025 at 12:07:53 PM EDT
-        </div>
-        <img src="bcm.jpg" alt="Birdsey Construction Management Logo" class="header-image">
-
-        <div class="section reports-section">
-            <h2>REPORTS</h2>
-            <ul>
-                <li><a href="https://birdseyconstruction.github.io/public/AwaitingEstimatesReport.html" target="_blank">Awaiting Estimates</a></li>
-            </ul>
-        </div>
-
-        <div class="section tools-section">
-            <h2>TOOLS</h2>
-            <ul>
-                <li><a href="https://birdseyconstruction.github.io/public/gp_verify.html" target="_blank">GP Check</a></li>
-                <li><a href="#">Tool 2 (Link not yet specified)</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="welcomePopup" class="popup">
-        <div class="popup-content">
-            <span class="close-button">&times;</span>
-            <p>Welcome! Links will open in a new window</p>
-        </div>
-    </div>
-
-    <script>
-        // Get the popup
-        var popup = document.getElementById('welcomePopup');
-
-        // Get the <span> element that closes the popup
-        var span = document.getElementsByClassName("close-button")[0];
-
-        // When the user clicks on <span> (x), close the popup
-        span.onclick = function() {
-            popup.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the popup content, close it
-        window.onclick = function(event) {
-            if (event.target == popup) {
-                popup.style.display = "none";
-            }
-        }
-
-        // Show the popup when the page loads
-        window.onload = function() {
-            popup.style.display = "block";
-        }
-    </script>
+    <header>
+        <img src="https://github.com/BirdseyConstruction/public/blob/main/bcm.jpg?raw=true" alt="Birdseye Construction Management Logo">
+    </header>
+    
+    <section id="reports">
+        <h1>Reports</h1>
+        <p>Project reports, progress updates, and summaries.</p>
+        <p><a href="https://birdseyconstruction.github.io/public/index.html">Awaiting Estimates</a></p>
+        <p><a href="https://birdseyconstruction.github.io/public/BirdseyMasterReport.html">BCM Master Report</a></p>
+        <h1>Tools</h1>
+        <p>Field management tools and utilities.</p>
+        <p><a href="https://birdseyconstruction.github.io/public/gp_verify.html">GP Audit / Check</a></p>
+        <div class="timestamp">Last updated: 04:51 PM EDT, July 28, 2025</div>
+        <!-- Add reports content here -->
+    </section>
+</body>
+</html>
 
 </body>
 </html>
