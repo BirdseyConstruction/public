@@ -1,817 +1,126 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awaiting Estimates Report</title>
+    <title>HTML Code Preview Tool</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
             color: #333;
+            line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
         }
-        h1, h2, h3 {
-            color: #1a73e8;
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            text-align: center;
         }
-        table {
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .editor-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #ddd;
+        }
+        .preview-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .panel-header {
+            background-color: #e9ecef;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        #htmlInput {
             width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #1a73e8;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .export-btn {
-            background-color: #1a73e8;
-            color: white;
-            padding: 10px 20px;
+            height: 100%;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            float: right;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            outline: none;
         }
-        .export-btn:hover {
-            background-color: #1557b0;
-        }
-        .comment-input { /* Only .comment-input remains */
-            width: 80%;
-            padding: 5px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .save-btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 5px 10px;
+        #preview {
+            width: 100%;
+            height: 100%;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            background-color: white;
         }
-        .save-btn:hover {
-            background-color: #45a049;
-        }
-        .comment-row { /* Only .comment-row remains */
-            border: none;
-        }
-        .saved-message {
-            color: #4CAF50;
-            font-size: 0.9em;
-            margin-left: 10px;
-            display: none;
-        }
-        .report-meta {
-            font-size: 0.8em;
-            color: #555;
-            margin-top: -10px;
-            margin-bottom: 20px;
+        @media (max-width: 768px) {
+            .main {
+                flex-direction: column;
+            }
+            .editor-panel {
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+                height: 50vh;
+            }
+            .preview-panel {
+                height: 50vh;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <button class="export-btn" onclick="window.open('https://birdseyconstruction.github.io/public/index.html', '_blank')">BCM Reports</button>
-        <h1>Awaiting Estimates Report</h1>
-        <p class="report-meta">Updated: July 28, 2025 11:23 AM EDT</p>
-        
-        <div class="section">
-            <h3>Overview</h3>
-            <p><strong>Total Projects:</strong> 29</p>
-            <p><strong>Markets Covered:</strong> 8 (AL, AR, FL, IN, LA, OH, OK, TX)</p>
-            <p><strong>Status Breakdown:</strong></p>
-            <ul>
-                <li>Field Review: 19 projects</li>
-                <li>Bid Modification: 7 projects</li>
-                <li>Assigned to Vendor: 1 project</li>
-                <li>Unable to Complete Inspection: 1 project</li>
-                <li>Closed: 1 project</li>
-            </ul>
-            <p><strong>Priority Breakdown:</strong></p>
-            <ul>
-                <li>High: 8 projects</li>
-                <li>Medium: 1 project</li>
-                <li>None: 20 projects</li>
-            </ul>
-            <p><strong>Due Date Range:</strong> June 17, 2025 – August 6, 2025</p>
+        <header class="header">
+            <h1>HTML Code Preview Tool</h1>
+            <p>Paste your HTML code on the left for a live preview on the right.</p>
+        </header>
+        <div class="main">
+            <div class="editor-panel">
+                <div class="panel-header">HTML Input</div>
+                <textarea id="htmlInput" placeholder="Paste your HTML code here...&#10;&#10;Example:&#10;&lt;h1&gt;Hello, World!&lt;/h1&gt;&#10;&lt;p&gt;This is a dynamic preview.&lt;/p&gt;"></textarea>
+            </div>
+            <div class="preview-panel">
+                <div class="panel-header">Live Preview</div>
+                <iframe id="preview" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+            </div>
         </div>
-
-        <div class="section">
-            <h2>Project Details</h2>
-            <table id="project-details-table">
-                <thead>
-                    <tr>
-                        <th>#</th> <th>Title & Description</th>
-                        <th>Property Address</th>
-                        <th>Market</th>
-                        <th>Status</th>
-                        <th>Assigned</th>
-                        <th>Priority</th>
-                        <th>Due</th>
-                        <th>Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D2400JK)</td>
-                        <td>3433 Foxbriar Lane</td>
-                        <td>Texas - TX</td>
-                        <td>Field Review</td>
-                        <td>Jake West</td>
-                        <td>None</td>
-                        <td>08/04/2025</td>
-                        <td>7/28/25 11:00 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="3433 Foxbriar Lane" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('3433 Foxbriar Lane')">Save</button>
-                            <span class="saved-message" id="comment-saved-3433 Foxbriar Lane">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D250077)</td>
-                        <td>2204 Carl Street</td>
-                        <td>Texas - TX</td>
-                        <td>Field Review</td>
-                        <td>Jake West</td>
-                        <td>None</td>
-                        <td>08/04/2025</td>
-                        <td>7/28/25 10:45 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="2204 Carl Street" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('2204 Carl Street')">Save</button>
-                            <span class="saved-message" id="comment-saved-2204 Carl Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D2400LP)</td>
-                        <td>1401 Irene Lane</td>
-                        <td>Oklahoma - OK</td>
-                        <td>Field Review</td>
-                        <td>TJ Myres</td>
-                        <td>None</td>
-                        <td>08/04/2025</td>
-                        <td>7/28/25 10:43 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="1401 Irene Lane" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('1401 Irene Lane')">Save</button>
-                            <span class="saved-message" id="comment-saved-1401 Irene Lane">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D25009C)</td>
-                        <td>229 Golden Gate Lane</td>
-                        <td>Texas - TX</td>
-                        <td>Field Review</td>
-                        <td>Ramiro Tirado</td>
-                        <td>None</td>
-                        <td>08/04/2025</td>
-                        <td>7/28/25 10:43 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="229 Golden Gate Lane" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('229 Golden Gate Lane')">Save</button>
-                            <span class="saved-message" id="comment-saved-229 Golden Gate Lane">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>National Home Rentals</td>
-                        <td>12004 West Pond Way</td>
-                        <td>FL - FL</td>
-                        <td>Field Review</td>
-                        <td>Michelle Stevens</td>
-                        <td>None</td>
-                        <td>08/04/2025</td>
-                        <td>7/28/25 10:37 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="12004 West Pond Way" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('12004 West Pond Way')">Save</button>
-                            <span class="saved-message" id="comment-saved-12004 West Pond Way">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Renu Management</td>
-                        <td>309 Sunnymeade Ln</td>
-                        <td>Texas - TX</td>
-                        <td>Field Review</td>
-                        <td>Jake West</td>
-                        <td>None</td>
-                        <td>08/04/2025</td>
-                        <td>7/28/25 10:34 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="309 Sunnymeade Ln" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('309 Sunnymeade Ln')">Save</button>
-                            <span class="saved-message" id="comment-saved-309 Sunnymeade Ln">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae</td>
-                        <td>117 Fernwood</td>
-                        <td>Ohio - OH</td>
-                        <td>Field Review</td>
-                        <td>Brian Paul</td>
-                        <td>High</td>
-                        <td>07/25/2025</td>
-                        <td>7/24/25 4:57 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="117 Fernwood" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('117 Fernwood')">Save</button>
-                            <span class="saved-message" id="comment-saved-117 Fernwood">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (A2500CL)</td>
-                        <td>920 W Lagoon Ave A215</td>
-                        <td>Alabama - AL</td>
-                        <td>Field Review</td>
-                        <td>Jacob Wood</td>
-                        <td>High</td>
-                        <td>07/31/2025</td>
-                        <td>7/24/25 12:28 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="920 W Lagoon Ave A215" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('920 W Lagoon Ave A215')">Save</button>
-                            <span class="saved-message" id="comment-saved-920 W Lagoon Ave A215">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (D24005B)</td>
-                        <td>126 Southshore Dr</td>
-                        <td>Arkansas - AR</td>
-                        <td>Field Review</td>
-                        <td>Kane Hardin</td>
-                        <td>None</td>
-                        <td>07/31/2025</td>
-                        <td>7/24/25 11:48 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="126 Southshore Dr" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('126 Southshore Dr')">Save</button>
-                            <span class="saved-message" id="comment-saved-126 Southshore Dr">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (POST CO5)</td>
-                        <td>510 Shump Street</td>
-                        <td>Ohio - OH</td>
-                        <td>Bid Modification</td>
-                        <td>Brian Paul</td>
-                        <td>None</td>
-                        <td>07/25/2025</td>
-                        <td>7/23/25 2:15 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="510 Shump Street" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('510 Shump Street')">Save</button>
-                            <span class="saved-message" id="comment-saved-510 Shump Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae</td>
-                        <td>615 Briarcliff Road</td>
-                        <td>Alabama - AL</td>
-                        <td>Bid Modification</td>
-                        <td>TJ Myres</td>
-                        <td>None</td>
-                        <td>07/25/2025</td>
-                        <td>7/23/25 2:03 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="615 Briarcliff Road" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('615 Briarcliff Road')">Save</button>
-                            <span class="saved-message" id="comment-saved-615 Briarcliff Road">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (POST CO)</td>
-                        <td>16949 Ravenna Road, Chagrin Falls 44023</td>
-                        <td>Ohio - OH</td>
-                        <td>Field Review</td>
-                        <td>Brian Paul</td>
-                        <td>None</td>
-                        <td>07/25/2025</td>
-                        <td>7/23/25 1:45 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="16949 Ravenna Road, Chagrin Falls 44023" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('16949 Ravenna Road, Chagrin Falls 44023')">Save</button>
-                            <span class="saved-message" id="comment-saved-16949 Ravenna Road, Chagrin Falls 44023">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (POST CO)</td>
-                        <td>6276 Cedar Springs Road, New Paris 45347</td>
-                        <td>Ohio - OH</td>
-                        <td>Field Review</td>
-                        <td>Brian Paul</td>
-                        <td>None</td>
-                        <td>07/25/2025</td>
-                        <td>7/23/25 1:33 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="6276 Cedar Springs Road, New Paris 45347" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('6276 Cedar Springs Road, New Paris 45347')">Save</button>
-                            <span class="saved-message" id="comment-saved-6276 Cedar Springs Road, New Paris 45347">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (POST CO)</td>
-                        <td>2112 Cumberland Road</td>
-                        <td>Alabama - AL</td>
-                        <td>Field Review</td>
-                        <td>Kevin Roper</td>
-                        <td>None</td>
-                        <td>07/11/2025</td>
-                        <td>7/23/25 1:22 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="2112 Cumberland Road" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('2112 Cumberland Road')">Save</button>
-                            <span class="saved-message" id="comment-saved-2112 Cumberland Road">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (Post CO)</td>
-                        <td>1743 E 31ST STREET</td>
-                        <td>Ohio - OH</td>
-                        <td>Field Review</td>
-                        <td>Brian Paul</td>
-                        <td>None</td>
-                        <td>07/25/2025</td>
-                        <td>7/23/25 1:17 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="1743 E 31ST STREET" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('1743 E 31ST STREET')">Save</button>
-                            <span class="saved-message" id="comment-saved-1743 E 31ST STREET">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Renu Management</td>
-                        <td>6640 Charleston Drive</td>
-                        <td>Texas - TX</td>
-                        <td>Field Review</td>
-                        <td>Jake West</td>
-                        <td>None</td>
-                        <td>08/06/2025</td>
-                        <td>7/23/25 8:38 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="6640 Charleston Drive" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('6640 Charleston Drive')">Save</button>
-                            <span class="saved-message" id="comment-saved-6640 Charleston Drive">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae</td>
-                        <td>1102 Grand Street</td>
-                        <td>Arkansas - AR</td>
-                        <td>Field Review</td>
-                        <td>Kane Hardin</td>
-                        <td>High</td>
-                        <td>07/25/2025</td>
-                        <td>7/21/25 3:50 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="1102 Grand Street" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('1102 Grand Street')">Save</button>
-                            <span class="saved-message" id="comment-saved-1102 Grand Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D25008P)</td>
-                        <td>10065 LEMON LN</td>
-                        <td>Arkansas - AR</td>
-                        <td>Field Review</td>
-                        <td>Kane Hardin</td>
-                        <td>High</td>
-                        <td>07/28/2025</td>
-                        <td>7/21/25 12:24 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="10065 LEMON LN" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('10065 LEMON LN')">Save</button>
-                            <span class="saved-message" id="comment-saved-10065 LEMON LN">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>BluSky (Labor Only)</td>
-                        <td>12085 1100 North</td>
-                        <td>Indiana - IN</td>
-                        <td>Field Review</td>
-                        <td>Michelle Stevens</td>
-                        <td>None</td>
-                        <td>07/28/2025</td>
-                        <td>7/21/25 10:50 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="12085 1100 North" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('12085 1100 North')">Save</button>
-                            <span class="saved-message" id="comment-saved-12085 1100 North">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (New Build)</td>
-                        <td>4234 Watkins Road</td>
-                        <td>Ohio - OH</td>
-                        <td>Field Review</td>
-                        <td>Michelle Stevens</td>
-                        <td>Medium</td>
-                        <td>08/01/2025</td>
-                        <td>7/21/25 9:23 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="4234 Watkins Road" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('4234 Watkins Road')">Save</button>
-                            <span class="saved-message" id="comment-saved-4234 Watkins Road">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D25009F)</td>
-                        <td>913 W Burton Street</td>
-                        <td>Louisiana - LA</td>
-                        <td>Field Review</td>
-                        <td>Chad Futch</td>
-                        <td>None</td>
-                        <td>07/24/2025</td>
-                        <td>7/17/25 2:06 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="913 W Burton Street" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('913 W Burton Street')">Save</button>
-                            <span class="saved-message" id="comment-saved-913 W Burton Street">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D25009Z)</td>
-                        <td>7831 Highway 113</td>
-                        <td>Oklahoma - OK</td>
-                        <td>Field Review</td>
-                        <td>John Moore III</td>
-                        <td>None</td>
-                        <td>07/23/2025</td>
-                        <td>7/16/25 9:46 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="7831 Highway 113" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('7831 Highway 113')">Save</button>
-                            <span class="saved-message" id="comment-saved-7831 Highway 113">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Change Order<br>Fannie Mae (C220041) (SEPTIC) Post CO2</td>
-                        <td>532 Donovan Rd</td>
-                        <td>Ohio - OH</td>
-                        <td>Field Review</td>
-                        <td>Brian Paul</td>
-                        <td>High</td>
-                        <td>07/31/2025</td>
-                        <td>7/10/25 4:20 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="532 Donovan Rd" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('532 Donovan Rd')">Save</button>
-                            <span class="saved-message" id="comment-saved-532 Donovan Rd">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D25008N)</td>
-                        <td>162 E Middleton Rd</td>
-                        <td>Arkansas - AR</td>
-                        <td>Bid Modification</td>
-                        <td>TJ Myres</td>
-                        <td>High</td>
-                        <td>07/17/2025</td>
-                        <td>7/10/25 4:14 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="162 E Middleton Rd" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('162 E Middleton Rd')">Save</button>
-                            <span class="saved-message" id="comment-saved-162 E Middleton Rd">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Estimate<br>Fannie Mae (D25007B)</td>
-                        <td>1113 Bennett Drive</td>
-                        <td>Texas - TX</td>
-                        <td>Bid Modification</td>
-                        <td>John Moore III</td>
-                        <td>High</td>
-                        <td>06/17/2025</td>
-                        <td>6/10/25 1:27 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9">
-                            <input type="text" class="comment-input" data-address="1113 Bennett Drive" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('1113 Bennett Drive')">Save</button>
-                            <span class="saved-message" id="comment-saved-1113 Bennett Drive">Saved!</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="section">
-            <h2>Other Clients Status</h2>
-            <h3>Maymont Data</h3>
-            <table id="maymont-table">
-                <thead>
-                    <tr>
-                        <th>#</th> <th>Title & Description</th>
-                        <th>Property Address</th>
-                        <th>Market</th>
-                        <th>Status</th>
-                        <th>Assigned</th>
-                        <th>Priority</th>
-                        <th>Due</th>
-                        <th>Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td>Initial Inspection (v.110)<br>Turnover</td>
-                        <td>3995 Frontier Rd Willis, TX 77378</td>
-                        <td>Fox - Houston</td>
-                        <td>Assigned to Vendor</td>
-                        <td>Jake West</td>
-                        <td>None</td>
-                        <td>07/29/2025</td>
-                        <td>7/28/25 10:26 AM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9"> <input type="text" class="comment-input" data-address="3995 Frontier Rd Willis, TX 77378" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('3995 Frontier Rd Willis, TX 77378')">Save</button>
-                            <span class="saved-message" id="comment-saved-3995 Frontier Rd Willis, TX 77378">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Inspection (v.109)<br>House Fire</td>
-                        <td>18903 Woodglen Shadows Dr Humble, TX 77346</td>
-                        <td>Fox - Houston</td>
-                        <td>Unable to Complete Inspection</td>
-                        <td>Jake West</td>
-                        <td>None</td>
-                        <td>08/01/2025</td>
-                        <td>7/16/25 7:49 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9"> <input type="text" class="comment-input" data-address="18903 Woodglen Shadows Dr Humble, TX 77346" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('18903 Woodglen Shadows Dr Humble, TX 77346')">Save</button>
-                            <span class="saved-message" id="comment-saved-18903 Woodglen Shadows Dr Humble, TX 77346">Saved!</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Initial Inspection (v.105)<br>No Water, Decimal SMA</td>
-                        <td>1303 W Phillips St Alvin TX 77511</td>
-                        <td>Fox - Houston</td>
-                        <td>Closed</td>
-                        <td>Matt Gravely</td>
-                        <td>None</td>
-                        <td>07/24/2025</td>
-                        <td>7/24/25 3:16 PM</td>
-                    </tr>
-                    <tr class="comment-row">
-                        <td colspan="9"> <input type="text" class="comment-input" data-address="1303 W Phillips St Alvin TX 77511" placeholder="Comments">
-                            <button class="save-btn" onclick="saveComment('1303 W Phillips St Alvin TX 77511')">Save</button>
-                            <span class="saved-message" id="comment-saved-1303 W Phillips St Alvin TX 77511">Saved!</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        </div>
-
+    </div>
     <script>
-        // Function to parse MM/DD/YYYY date format to a Date object
-        function parseDate(dateStr) {
-            const [month, day, year] = dateStr.split('/').map(Number);
-            return new Date(year, month - 1, day);
+        const htmlInput = document.getElementById('htmlInput');
+        const preview = document.getElementById('preview');
+
+        function updatePreview() {
+            const code = htmlInput.value;
+            preview.srcdoc = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview</title>
+</head>
+<body>
+    ${code}
+</body>
+</html>`;
         }
 
-        // Function to sort table rows by Fannie Mae presence then by due date
-        function sortTableByDueDate(tableId) {
-            const table = document.getElementById(tableId);
-            const tbody = table.querySelector('tbody');
-            const rows = Array.from(tbody.querySelectorAll('tr:not(.comment-row)'));
-            const rowGroups = [];
+        // Update on input (real-time)
+        htmlInput.addEventListener('input', updatePreview);
 
-            rows.forEach(projectRow => {
-                const group = { projectRow };
-                let nextSibling = projectRow.nextElementSibling;
-                if (nextSibling && nextSibling.classList.contains('comment-row')) {
-                    group.commentRow = nextSibling;
-                }
-                rowGroups.push(group);
-            });
-
-            if (tableId !== 'pending-data-table') { 
-                rowGroups.sort((a, b) => {
-                    const titleA = a.projectRow.cells[1].textContent; // Title & Description column
-                    const titleB = b.projectRow.cells[1].textContent;
-
-                    const hasFannieA = titleA.includes('Fannie Mae');
-                    const hasFannieB = titleB.includes('Fannie Mae');
-
-                    // Primary sort: Fannie Mae projects come first
-                    if (hasFannieA && !hasFannieB) {
-                        return -1;
-                    }
-                    if (!hasFannieA && hasFannieB) {
-                        return 1;
-                    }
-
-                    // Secondary sort: By Due Date (if primary sort is inconclusive)
-                    const dueColumnIndex = 7; 
-                    const dateA = parseDate(a.projectRow.cells[dueColumnIndex].textContent);
-                    const dateB = parseDate(b.projectRow.cells[dueColumnIndex].textContent);
-                    return dateA - dateB;
-                });
-            }
-
-            tbody.innerHTML = '';
-            rowGroups.forEach(group => {
-                tbody.appendChild(group.projectRow);
-                if (group.commentRow) tbody.appendChild(group.commentRow);
-            });
-        }
-
-        // Function to apply continuous numbering across specified tables
-        function applyContinuousNumbering() {
-            let entryNumber = 1;
-
-            // Number Project Details table
-            const projectDetailsTable = document.getElementById('project-details-table');
-            if (projectDetailsTable) {
-                const projectDetailRows = projectDetailsTable.querySelectorAll('tbody > tr:not(.comment-row)');
-                projectDetailRows.forEach(row => {
-                    if (row.cells.length > 0) {
-                        row.cells[0].textContent = entryNumber++;
-                    }
-                });
-            }
-
-            // Number Maymont Data table
-            const maymontTable = document.getElementById('maymont-table');
-            if (maymontTable) {
-                const maymontRows = maymontTable.querySelectorAll('tbody > tr:not(.comment-row)');
-                maymontRows.forEach(row => {
-                    if (row.cells.length > 0) {
-                        row.cells[0].textContent = entryNumber++;
-                    }
-                });
-            }
-        }
-
-        // Load saved comments from localStorage, sort tables, and apply continuous numbering when the page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load saved comments
-            const commentInputs = document.querySelectorAll('.comment-input');
-            commentInputs.forEach(input => {
-                const address = input.getAttribute('data-address');
-                const savedComment = localStorage.getItem(`comment_${address}`);
-                if (savedComment) {
-                    input.value = savedComment;
-                }
-            });
-
-            // Sort all relevant tables first
-            sortTableByDueDate('project-details-table');
-            sortTableByDueDate('maymont-table');
-
-            // Then apply continuous numbering
-            applyContinuousNumbering();
-        });
-
-
-        // Save comments to localStorage and show "Saved!" message
-        function saveComment(address) {
-            const input = document.querySelector(`.comment-input[data-address="${address}"]`);
-            const value = input.value.trim();
-            // Allow saving empty comments to clear them
-            localStorage.setItem(`comment_${address}`, value);
-            const savedMessage = document.getElementById(`comment-saved-${address}`);
-            savedMessage.style.display = 'inline';
-            setTimeout(() => {
-                savedMessage.style.display = 'none';
-            }, 2000); // Hide message after 2 seconds
-        }
+        // Initial update
+        updatePreview();
     </script>
 </body>
 </html>
