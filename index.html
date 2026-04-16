@@ -3,67 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birdseye Construction Management</title>
+    <title>Clean Services Catalog - Sorted A to Z by Category</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        header {
-            margin-bottom: 40px;
-        }
-        img {
-            max-width: 300px;
-            height: auto;
-        }
-        section {
-            margin: 40px auto;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #006400; /* Dark green to match the logo */
-            font-size: 2em;
-        }
-        p {
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
             color: #333;
         }
-        a {
-            color: #006400;
-            text-decoration: none;
+        h1 {
+            text-align: center;
+            color: #2c3e50;
         }
-        a:hover {
-            text-decoration: underline;
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
         }
-        .timestamp {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 10px;
+        input#search {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            outline: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 14px 10px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover {
+            background-color: #f1f8ff;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .category {
+            font-weight: bold;
+            color: #2980b9;
         }
     </style>
 </head>
 <body>
-    <header>
-        <img src="https://github.com/BirdseyConstruction/public/blob/main/bcm.jpg?raw=true" alt="Birdseye Construction Management Logo">
-    </header>
+    <h1>🏠 Active Services Catalog</h1>
+    <p style="text-align:center; color:#7f8c8d;">Sorted A–Z by Category • April 2026</p>
     
-    <section id="reports">
-        <h1>Reports</h1>
-        <p>Project reports, progress updates, and summaries.</p>
-        <!-- <p><a href="https://birdseyconstruction.github.io/public/AwaitingEstimatesReport.html">Awaiting Estimates</a></p> -->
-        <p><a href="https://birdseyconstruction.github.io/public/construction_report.html">BCM Construction Report</a></p>
-        <h1>Tools</h1>
-        <p>Field management tools and utilities.</p>
-        <p><a href="https://birdseyconstruction.github.io/public/gp_verify.html">GP Audit / Check</a></p>
-        <div class="timestamp">Last updated: 05:52 PM EDT, July 28, 2025</div>
-        <!-- Add reports content here -->
-    </section>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="🔍 Search by service item or category..." onkeyup="filterTable()">
+    </div>
+
+    <table id="servicesTable">
+        <thead>
+            <tr>
+                <th>Service Item</th>
+                <th>Unit</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        const services = [
+            // APPLIANCES
+            {"name":"Appliances - 24 in. Single Electric Wall Oven in SS major brands","unit":"EA","category":"APPLIANCES"},
+            {"name":"Dishwasher : Standard Grade - 24 Inch ENERGY STAR","unit":"EA","category":"APPLIANCES"},
+            {"name":"Appliances - Electric Cook top 30 In. Radiant Electric Cooktop In Stainless Steel With 4 Elements","unit":"EA","category":"APPLIANCES"},
+            {"name":"Electric Range - 30 In. 5.3 Cu. Ft. 4-burner Electric Range In Stainless Steel With Storage major brands","unit":"EA","category":"APPLIANCES"},
+            {"name":"Appliances - Gas Cook Top - 30 In. Standard Grade - In Stainless Steel w/ 4-burners","unit":"EA","category":"APPLIANCES"},
+            {"name":"Gas Range - 30 In. 4.8 Cu. Ft. Freestanding SS major brands (excludes flex gas line - reuse existing)","unit":"EA","category":"APPLIANCES"},
+            {"name":"Flexible gas supply line connector","unit":"EA","category":"APPLIANCES"},
+            {"name":"Hood Vent - Rl6200 Series 30 In. Ductless Under Cabinet Range Hood With Light In SS (includes installation)","unit":"EA","category":"APPLIANCES"},
+            {"name":"Microwave - OTR - 1.6 Cu. Ft. Over-the-range Microwave In SS","unit":"EA","category":"APPLIANCES"},
+            {"name":"Appliances : Garbage Disposal : Continuous feed 1/2-HP Septic Safe Non-corded","unit":"EA","category":"APPLIANCES"},
+            {"name":"Appliance Installation labor (includes removal, disposal of existing and installing the new appliance per pc)","unit":"EA","category":"APPLIANCES"},
+            {"name":"Refrigerator : Top-Freezer ENERGY STAR Certified in SS, Average grade, match up to 24CF, 2 doors","unit":"EA","category":"APPLIANCES"},
+
+            // CARPENTRY EXTERIOR
+            {"name":"Asphalt crack repair","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Chain Link Fencing - incl. demo : w/posts & top rail - 4' high - 11 gauge","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Concrete : Sidewalk & Misc","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Concrete Driveway Replacement","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Exterior Deck Handrails","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Exterior Deck Replacement","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Deck plank 5/4 board P.T. replacement only","unit":"SF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Exterior Deck Stairs","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Exterior Deck Staining / Finish","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Exterior Deck Stain/finish deck handrail","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Fascia Board Composite - Fiber Cement (excludes paint)","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Fascia Board Vinyl - Fascia - up to 8\" PVC OR Wood","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Fencing : Wood picket 6FT privacy","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"4\" x 4\" wood post - PT Fence or Deck","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Wood gate 5'- 6' high - PT up to 4ft wide R&R","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Gutter extension (or) splash guard","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Gutter / downspout - aluminum - up to 5\"","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Gutter Cleaning : Blow out gutters, bag & dispose organic waste","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Landscaping (basic)","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Large Tree Removal","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Tree Trimming","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Tree stump grinding - per stump","unit":"1","category":"CARPENTRY EXTERIOR"},
+            {"name":"Mailbox (Full Kit)","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Mailbox only, rural route metal (excludes post)","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Wall mounted mailbox","unit":"EA","category":"CARPENTRY EXTERIOR"},
+            {"name":"Metal Hand Railing : Exterior : Black iron rail","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Mobile Home Skirting - vinyl or plastic panels - 24\" to 36\"","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Siding - Hardie (Concrete Composite Type)","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Siding - Vinyl","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"House wrap (air/moisture barrier on older homes where missing or damaged)","unit":"SF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Sheathing - structural grade - 1/8\" - foil or poly face","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Siding - hardboard - 4x8 sheet (T-111 or similar)","unit":"SqFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Siding Trim / Exterior corner (Up to 1\" x 6\" trim board)","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Soffit & fascia combined - metal or vinyl","unit":"LnFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Soffit & fascia combined : WOOD","unit":"LnFt","category":"CARPENTRY EXTERIOR"},
+            {"name":"Soffiting - Wood Soffit","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Soffiting: Full Panel Ceiling Exterior","unit":"SF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Soffiting - Metal or Vinyl w/ venting (12LF Min)","unit":"LF","category":"CARPENTRY EXTERIOR"},
+            {"name":"Soffiting: Ceiling Batten Strips","unit":"LF","category":"CARPENTRY EXTERIOR"},
+
+            // CARPENTRY INTERIOR
+            {"name":"Bathroom Vanities - 24 In. W X 19 In. D X 34 In. H Single Sink Bath Vanity In Pearl Gray With White Cultured Marble Top","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanities - 30 In. W X 19 In. D X 35 In. H Single Sink Freestanding Bath Vanity In White With White Cultured Marble Top","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanities - 31 In. W X 19 In. D X 35 In. H Single Sink Bath Vanity In Deep Blue With Silver Ash Cultured Marble Top","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanities - 36 in. W x 19 in. D x 35 in. H Single Sink Freestanding Bath Vanity in White with White Cultured Marble Top","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanities - 48.5 In. W X 18.75 In. D X 34.375 In. H Single Sink Bath Vanity In White With Arctic Solid Surface Top","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanities - 49 In. W X 19 In. D X 35 In. H Single Sink Bath Vanity In Deep Blue With Silver Ash Cultured Marble Top","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanities >>> Lower (base) unit CABS ONLY <<<  Standard grade","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Vanity with cultured marble or solid surface top","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Cabinet Hardware - 1-1/4 In. (32 Mm) Square Cabinet Knob (pack of 5)","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Cabinet Hardware - 5 1/16 In. (128 Mm) Modern Cabinet Bar Pull","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Cabinet Replacement - Base","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Cabinet Replacement - Wall","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Solid hardwood [base cabinet] replacement","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Solid hardwood [wall cabinet] replacement","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Cabinetry repairs","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Counter Top : Post Form : Formica countertops","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Cultured Marble Vanity Top - Solid White w/ molded sink and 4\" backsplash","unit":"LnFt","category":"CARPENTRY INTERIOR"},
+            {"name":"Quartz Countertop / engineered stone","unit":"SF","category":"CARPENTRY INTERIOR"},
+            {"name":"Clothes dryer vent box","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Garbage disposal - Standard grade","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Toilet - Round or elongated, dual or single flush, with efficiency flush volume not to exceed 1.2 gpm. Includes: seat, wax ring, supply line, two brass bowl bolts/screws, stop valve & caulking","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Toilet Seat : Round or elongated","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Toilet tank repair kit - flush valve & flapper rebuild","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Sink - 19 in. Drop-In Round Vitreous China in White","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Pedestal Sink - 8.2 In. Basin In White Vitreous China","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Vanity Faucet - 4 or 8 In. Water Efficient models","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Mirror - Wood Framed Up To 5SF","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Medicine Cabinet With Mirror - 16\"x20\" Rectangular Plastic","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Medicine Cabinet with Mirror - 15.25 in. W x 26 in. H","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom Accessories (bid per pc for each 24 In. Towel Bar, Toilet Paper Holder, Towel Ring or Towel Hook)","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom - Wall Mount Pivot Arm Toilet Paper Holder","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Caulking : Remove damaged or failing sections, re-seal all wet areas","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Shower Faucet - 4-spray Single Handle Shower Faucet 1.75 Gpm In Chrome","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Shower Faucet - Double Handle 1-spray Shower Faucet 1.75 Gpm In Chrome","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Shower Faucet - Single Handle 1-spray Tub And Shower Faucet 1.8 Gpm In Gold, Chrome or Brushed Nickel","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Shower Faucet - Single Handle 1-spray Tub And Shower Faucet 1.8 Gpm In Matte Black","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Shower head only - Standard grade","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Shower door : Single panel door with clear or striped glass and chrome colored trim.","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Tub : Combo w/ Surround - full kit with trim up to 65SF with trim.","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Tub & Surround Refinish","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathtub / Sink chip repair (minor repairs, closest possible match blending color)","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Tub - Claw foot style - Standard grade","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Tub faucet : Claw Foot Compatible","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom ventilation fan w/light","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Bathroom ventilation fan","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Lighting - Vanity Light Bar (up to 4 bulbs)","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Closet wire shelving : 16 in. D wire closet shelving w/ all supports, brackets, etc.","unit":"LnFt","category":"CARPENTRY INTERIOR"},
+            {"name":"Closet rod : Adjustable metal rod or finger jointed pine M&L","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Oak Handrail (Post to Post) : Oak railing w/ hardware, spindles, stain or paint finish","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Handrail - Hardwood - Wall mounted","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Handrail : Standard Softwood : Oval 1.5\" rail, hardware, wall return & paint finish","unit":"LF","category":"CARPENTRY INTERIOR"},
+            {"name":"Attic Stairs - Aluminum Attic Ladder with 375lbs Maximum Load Capacity","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Attic access panel : Make new access panel","unit":"EA","category":"CARPENTRY INTERIOR"},
+            {"name":"Attic Insulation (Up to 12\" R30)","unit":"SqFt","category":"CARPENTRY INTERIOR"},
+            {"name":"Insulation : WALL : Batt Insulation - 4\" R19-21 paper / foil faced","unit":"SF","category":"CARPENTRY INTERIOR"},
+
+            // DOOR & WINDOW
+            {"name":"Bi‐fold & Bypass Doors : Flat or panel, bored and morticed.","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Interior Door: Slab Only (Flat or Panel)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"French door, 8' - Interior - single - pre-hung unit","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Interior Door: Pre‐Hung (Flat or Panel)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Door knob (or lever set) : Bed/bath","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Door knob (or lever set) : Hall/closet","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Door Hinges - 3 In. X 5/8 In. Radius Squeak-free (set of 3)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Louvered Door : MEP [Slab Unit Only]","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Exterior Door: Metal : Pre‐Hung (Fan Lite, 6 Lite, 9 Lite or Decorative Lite)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Exterior Door Weatherstripping Replacement","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Exterior Door: Pre‐Hung (6 Panel, Flush)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Exterior Door: Wood : Pre‐Hung","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Sliding Patio Door - 6' x 6' 8\" door with a mill-finish aluminum or vinyl frame","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Sliding Patio Door lockset & security bar installation M&L","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Storm Door: Full view : 36\"x 80\" 2000 Series White Universal Full view Aluminum Storm Door","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Window Replacement : Install Single/Dbl hung window (up to 3050)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Window screen : New or Re-Screen (up to 9SF)","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Window minor repairs : adjust, lubricate or install locks.","unit":"EA","category":"DOOR & WINDOW"},
+            {"name":"Reglaze 3/8\" annealed/float glass - single pane glass replacement","unit":"SF","category":"DOOR & WINDOW"},
+            {"name":"Window : WOOD : Oversize / Custom (Up To 28SF glazing)","unit":"EA","category":"DOOR & WINDOW"},
+
+            // DRYWALL
+            {"name":"DRYWALL : 1/2\" drywall - hung, taped, floated, ready for paint (includes demo)","unit":"SqFt","category":"DRYWALL"},
+            {"name":"Wall Paneling : 4' x 8' sheet simulated wood veneer, 1/8\" thick.","unit":"SF","category":"DRYWALL"},
+            {"name":"Wall Paneling Demolition Only : Wet or dry, no bagging","unit":"SF","category":"DRYWALL"},
+            {"name":"DRYWALL DEMO : NON-STANDARD : Existing drywall is wet or installed over lath & plaster","unit":"SqFt","category":"DRYWALL"},
+            {"name":"Drywall : additional cost for gluing drywall ceilings","unit":"SqFt","category":"DRYWALL"},
+            {"name":"Drywall Repair - Drywall patch beyond typ. paint prep","unit":"EA","category":"DRYWALL"},
+            {"name":"Drywall Ceiling / Wall texture or popcorn","unit":"SqFt","category":"DRYWALL"},
+            {"name":"Insulation : WALL : Batt Insulation - 4\" R19-21 paper / foil faced","unit":"SF","category":"DRYWALL"},
+
+            // ELECTRICAL
+            {"name":"Ceiling Fan With Light Kit - Bldg grade basic 52 In. Indoor Led","unit":"EA","category":"ELECTRICAL"},
+            {"name":"CO2 Detector - Interior Electrical - 10 Year Worry-free Sealed-in Lithium Battery Carbon Monoxide Detector","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Light bulb - LED small or medium globe replacement (up to 500LM) M&L (qty 2)","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Light base & bulb : Keyless ceramic w/ pull chain & LED bulb","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Dining Rm Chandelier - Quality: 3 to 6 lights, average metal finish and design.","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Doorbell : Wireless : Terminate existing wiring, add blank cover...","unit":"EA","category":"ELECTRICAL"},
+            {"name":"GFCI Receptacle - tamper resistant","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Garage Shop Light - 4-ft 5175-Lumen White LED Low Bay style","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Lighting - 13 In. Led Round Ceiling Flush Mount Light Fixture","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Lighting - 6 In. Color Selectable (2700k-3500k) New Construction Or Remodel Canless Recessed Integrated Led Kit","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Lighting - Pendant Fixtures - 1-light Mini Pendant With Clear Glass Shade","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Smoke & CO2 Alarm Combo - Hardwired Interconnectable Smoke & Carbon Monoxide Detector With Aa Battery Backup","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Smoke Alarm - Hardwired Interconnectable Smoke Only Detector","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Smoke & CO2 Detector / Alarm Combo - Hardwired (or 10Yr Sealed Battery)","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Smoke Alarm - Hardwired Interconnectable (OR) Sealed Battery : Smoke Only Detector","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Replace all smoke detector batteries in home (bulk 9v alkaline pack)","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Switch - Single-pole Toggle Light Switch","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Ext. Light : 9.5 In. 1-light Zinc Outdoor Wall Barn Light Sconce Lantern","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Ext. Light : Wall Mount - hardwired 1 light fixture","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Ext. Light : Ceiling Flush Mount - Outdoor 2 bulb exterior rated fixture","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Ext. Light : Motion Activated Wired Outdoor 2-head Dusk-to-dawn Led Security Flood Light 1400 Lumens","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Light fixture - wall sconce - Standard grade","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Ext. Light : Wall Lantern Sconce - Outdoor With Clear Seeded Glass","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Exterior Outlets - 1-gang Extra Duty Horizontal/vertical Non-metallic Weatherproof In-use Cover Kit","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Exterior Outlets - Extra Duty 1 gang, slim profile GFCI receptacle & weatherproof cover","unit":"EA","category":"ELECTRICAL"},
+            {"name":"GFCI Receptacle Outlet - 20 Amp Self-test Smartlockpro Slim Duplex Gfci Outlet","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Receptacle Outlet - Eaton 15-Amp 125-volt Tamper Resistant Residential Duplex Outlet","unit":"EA","category":"ELECTRICAL"},
+            {"name":"240v Outlet (Dryer, Range, Wtr Hrt, etc.)","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Fire Extinguiser : 5 lb. ABC fire extinguisher","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Light bulb - LED tube - 4' M&L","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Light bulb - LED small or medium bulb replacement M&L (3 pack)","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Door Opener Motor - 1/2 HP light duty opener with light and bulb.","unit":"EA","category":"ELECTRICAL"},
+            {"name":"Remote Control - Klik5u-bk2 Single Button Universal Clicker Black Garage Door","unit":"EA","category":"ELECTRICAL"},
+
+            // ELECTRICAL MEP
+            {"name":"Electrical Panel - Replace Electrical 100 amp breaker panel (OR SUB PANEL)","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Electrical Panel - Replace Electrical 200 amp breaker panel","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Electrical : Meter mast for overhead power drop - 3\" conduit","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Electric Meter base and main disconnect - 200 amp","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Disconnect box - 30 amp - non fused","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Electrical Panel Arc Fault Circuits (or) GFCI Breakers per local requirements","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Electrical Panel Trace & Re-label existing circuits","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Grounding Rod, 8FT electrode with conductor & nut assembly","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"Electrical Rewire (Monolithic Slabs)","unit":"SqFt","category":"ELECTRICAL MEP"},
+            {"name":"Electrical Rewire (Confined Space Work / Low Crawl Space)","unit":"SqFt","category":"ELECTRICAL MEP"},
+            {"name":"Circuit 240v : Add new equipment circuit.","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"CIRCUIT WIRING : Add 1 duplex receptacle for new microwave, vent hood or MEP","unit":"EA","category":"ELECTRICAL MEP"},
+            {"name":"GARAGE OPENER WIRING : Add 1 duplex receptacle to existing garage circuit","unit":"EA","category":"ELECTRICAL MEP"},
+
+            // FLOORING
+            {"name":"Carpet : Bedroom : 36oz BFC PET w/ 6lb Pad - Color: Fleck or similar.","unit":"SqFt","category":"FLOORING"},
+            {"name":"Stairwell Carpet Replacement : Per step labor additional costs","unit":"EA","category":"FLOORING"},
+            {"name":"Carpet removal : demo pad, & tackless strip","unit":"SqFt","category":"FLOORING"},
+            {"name":"CERAMIC TILE / GLUE DOWN FLOORING DEMO","unit":"SqFt","category":"FLOORING"},
+            {"name":"Ceramic Tile Flooring Installer - 1 hr. minimum for repairs","unit":"EA","category":"FLOORING"},
+            {"name":"FLOORING : Ceramic tile installation : Grout to match color of tile","unit":"SqFt","category":"FLOORING"},
+            {"name":"FLOORING : Laminate Wood : 1/4\" (7mm) thick wood planks","unit":"SqFt","category":"FLOORING"},
+            {"name":"FLOORING : LVP - 12 mil-click w/ underlayment","unit":"SqFt","category":"FLOORING"},
+            {"name":"FLOORING : WOOD : Oak flooring - #2 common or better.","unit":"SqFt","category":"FLOORING"},
+            {"name":"FLOORING : WOOD : Pre-finished - 2 1/4\" to 7\" wide","unit":"SqFt","category":"FLOORING"},
+            {"name":"FLOORING : WOOD REFINISHING : Screen Sand","unit":"SqFt","category":"FLOORING"},
+            {"name":"LAMINATE DEMO : Remove floating laminate flooring","unit":"SqFt","category":"FLOORING"},
+            {"name":"Carpet : Clean and deodorize","unit":"SF","category":"FLOORING"},
+            {"name":"Baseboard : tall profile : 5-1/4x5/8 Pine wood or similar","unit":"LnFt","category":"FLOORING"},
+            {"name":"Baseboard : standard : up to 3.5\" MDF composite or wood","unit":"LF","category":"FLOORING"},
+            {"name":"Shoe Mold - Min. 1/2\" x 3/4\" primed","unit":"LF","category":"FLOORING"},
+            {"name":"Transition strip - Vinyl - metal transition strip","unit":"LnFt","category":"FLOORING"},
+            {"name":"Subfloor 3/4\" OSB - T&G w/ tearout of existing","unit":"SF","category":"FLOORING"},
+
+            // HVAC
+            {"name":"HVAC Tuneup - Basic hvac clean & tuneup","unit":"EA","category":"HVAC"},
+            {"name":"Clean interior AHU evaporator coil","unit":"EA","category":"HVAC"},
+            {"name":"Clean exterior air conditioning condenser coils","unit":"EA","category":"HVAC"},
+            {"name":"Gas Wall Heater replacement (ventless) Includes: Gas line and shut off valve.","unit":"EA","category":"HVAC"},
+            {"name":"HVAC condenser unit - 2 ton - up to 13 SEER","unit":"EA","category":"HVAC"},
+            {"name":"HVAC 2 Ton AHU w/ heat strip element kit and A/C coil","unit":"EA","category":"HVAC"},
+            {"name":"Mobile Home Furnace - 114,000 BTU - mobile home - AC ready","unit":"EA","category":"HVAC"},
+            {"name":"Furnace & WH Type B vent upgrade for code / safety compliance","unit":"EA","category":"HVAC"},
+            {"name":"Condenser pad (added when missing with new HVAC install only)","unit":"EA","category":"HVAC"},
+            {"name":"Heat/AC register - Floor or ceiling register","unit":"EA","category":"HVAC"},
+            {"name":"HVAC Return Air Grille cover - Any size","unit":"EA","category":"HVAC"},
+
+            // HVAC MEP
+            {"name":"Dehumidifier - Permanent self contained unit w/ condensate plumbing","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC Condensate / limit switch","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC Duct (per drop)","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC ELECTRIC Ductless mini-split system - Up to 2 zone w/ heat.","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC ELECTRIC Ductless mini-split system - single zone w/ heat.","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC ELECTRIC 4-5 Tons - Install AHU & Condersing unit.","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC ELECTRIC Up to 3Tons","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC ELECTRIC 3.5Tons","unit":"EA","category":"HVAC MEP"},
+            {"name":"Packaged HVAC unit - Up To 3 ton 14-16 SEER","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC Plenum - Replace plenum & air return","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC Security Cage - Standard metal cage w/ lock.","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC : Condenser pad - any size","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC Refrigerant lineset - 3/8\" x 1\" tubing - up to 30'","unit":"EA","category":"HVAC MEP"},
+            {"name":"HVAC Whip & disconnect box 60A non-fused","unit":"EA","category":"HVAC MEP"},
+            {"name":"Thermostat: Honeywell T6 Pro Smart T-Stat","unit":"EA","category":"HVAC MEP"},
+            {"name":"Circuit 240v : Add new equipment circuit.","unit":"EA","category":"HVAC MEP"},
+
+            // MAINTENANCE
+            {"name":"Apply odor counteractant - liquid spray such as OdoBan","unit":"SF","category":"MAINTENANCE"},
+            {"name":"Deep Clean : Remove all C&D, empty trash containers...","unit":"EA","category":"MAINTENANCE"},
+            {"name":"Final Clean - move in ready.","unit":"EA","category":"MAINTENANCE"},
+            {"name":"Muck out all post eviction trash, food, clothing and items.","unit":"EA","category":"MAINTENANCE"},
+            {"name":"PRESSURE WASHING : Basic high pressure wash of all concrete flatwork","unit":"EA","category":"MAINTENANCE"},
+            {"name":"Trash Out : Haul debris 1/2 ton (pickup load) - including dump fees","unit":"EA","category":"MAINTENANCE"},
+            {"name":"WINTERIZATION : Close main gate valve at service point...","unit":"EA","category":"MAINTENANCE"},
+
+            // PAINTING EXT
+            {"name":"Exterior Paint - All previously painted surfaces, trim, garage & ext doors.","unit":"SqFt","category":"PAINTING EXT"},
+            {"name":"Exterior Trim Only Paint","unit":"SqFt","category":"PAINTING EXT"},
+            {"name":"Seal & paint wood window (per side)","unit":"EA","category":"PAINTING EXT"},
+            {"name":"Exterior Door : Prime & Paint : Includes jamb & trim (both sides)","unit":"EA","category":"PAINTING EXT"},
+            {"name":"CONCRETE FINISH : Epoxy coating - Garage or basement floor","unit":"SqFt","category":"PAINTING EXT"},
+            {"name":"Exterior paint primer : for dark pigmented previously painted exterior surfaces","unit":"SqFt","category":"PAINTING EXT"},
+
+            // PAINTING INT
+            {"name":"Drylock walls","unit":"SqFt","category":"PAINTING INT"},
+            {"name":"FLOOR PAINT : CONCRETE : Epoxy coating - Garage or basement floor","unit":"SqFt","category":"PAINTING INT"},
+            {"name":"Paint primer : Interior : Use for dark pigmented previously painted surfaces","unit":"SqFt","category":"PAINTING INT"},
+            {"name":"Interior Paint : All liveable spaces (garage excl).","unit":"GLA","category":"PAINTING INT"},
+            {"name":"Interior Paint Touch Up Only","unit":"EA","category":"PAINTING INT"},
+            {"name":"Interior Paint - Latex, low VOC, two coats","unit":"GLA","category":"PAINTING INT"},
+            {"name":"CABINET PAINTING : Prep, degrease & prime all surfaces","unit":"LF","category":"PAINTING INT"},
+            {"name":"Temporary flooring protection (touch-up areas)","unit":"SF","category":"PAINTING INT"},
+
+            // PLUMBING
+            {"name":"Stop valves : angled","unit":"EA","category":"PLUMBING"},
+            {"name":"Sink strainer and drain assembly","unit":"EA","category":"PLUMBING"},
+            {"name":"Snake & clean out clogged drain","unit":"EA","category":"PLUMBING"},
+            {"name":"Kitchen Faucet - water efficient faucet with single or double handle","unit":"EA","category":"PLUMBING"},
+            {"name":"Washing Machine Outlet Box With Water Hammer Arrests","unit":"EA","category":"PLUMBING"},
+            {"name":"Water pressure regulator valve - 1\"","unit":"EA","category":"PLUMBING"},
+            {"name":"Water spigot : Replace existing only : 12 in. Anti-Siphon Sillcock","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Spigot : Vacuum breaker anti siphon device","unit":"EA","category":"PLUMBING"},
+            {"name":"P-trap assembly - ABS (plastic)","unit":"EA","category":"PLUMBING"},
+            {"name":"Tub / Sink Pop Up Stopper Assembly Kit","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater - Performance 40 Gal. 4500-Watt Elements Medium Electric","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater - Performance 50 Gal. 4500-Watt Elements Medium Electric","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater Direct 40 Gallon Gas Power Vent","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater GAS - Performance 40 Gal. Short LOWBOY","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater GAS - Performance 40 Gal. Tall","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater GAS - Performance 50 Gal. Tall","unit":"EA","category":"PLUMBING"},
+            {"name":"Water heater - tankless - 20.1kw to 36kw - Electric","unit":"EA","category":"PLUMBING"},
+            {"name":"Thermal expansion tank - 2 gallon","unit":"EA","category":"PLUMBING"},
+            {"name":"Water heater stand - 21 In. Galvanized Steel Water Heater Stand","unit":"EA","category":"PLUMBING"},
+            {"name":"Water Heater Tank Flush & Maintenance","unit":"EA","category":"PLUMBING"},
+            {"name":"Water heater overflow drain pan","unit":"unit","category":"PLUMBING"},
+            {"name":"Furnace & WH Type B vent upgrade for code / safety compliance","unit":"LnFt","category":"PLUMBING"},
+            {"name":"Kitchen Sink : Drop-in 33-in x 22-in Double equal bowl","unit":"EA","category":"PLUMBING"},
+            {"name":"Kitchen Sink : Undermount Double (or single) bowl","unit":"EA","category":"PLUMBING"},
+            {"name":"Stacked Laundry Center Washer / Dryer Combo","unit":"EA","category":"PLUMBING"},
+
+            // PLUMBING MEP
+            {"name":"DISTRIBUTION REPLUMB - Re-pipe distribution system hot & cold.","unit":"EA","category":"PLUMBING MEP"},
+            {"name":"Plumbing Permit & Inspection Fees","unit":"EA","category":"PLUMBING MEP"},
+            {"name":"Water Distribution manifold for PEX re-plumb","unit":"EA","category":"PLUMBING MEP"},
+            {"name":"Re-Plumb Water Distribution system : Rough-in - per fixture","unit":"EA","category":"PLUMBING MEP"},
+            {"name":"Plumbing Labor Minimum","unit":"EA","category":"PLUMBING MEP"},
+
+            // ROOFING
+            {"name":"Roof Decking - 1/2\" CDX/OSB or similar sheathing.","unit":"SF","category":"ROOFING"},
+            {"name":"ROOFING : Laminated - comp. shingle - w/ felt","unit":"SQ","category":"ROOFING"},
+            {"name":"ROOFING : Modified bitumen fiberglass base sheet","unit":"SQ","category":"ROOFING"},
+            {"name":"Roofing Repair - Minimum Charge - L&M","unit":"EA","category":"ROOFING"},
+            {"name":"Tear off : Additional layer of comp. shingles","unit":"SQ","category":"ROOFING"},
+            {"name":"Fortified Roofing *Bronze certificate*","unit":"SQ","category":"ROOFING"},
+            {"name":"ROOFING (TX) - Arch 30YR w/ arch shingles","unit":"SQ","category":"ROOFING"},
+            {"name":"ROOFING (OHIO) - Arch 30YR w/ arch shingles","unit":"SQ","category":"ROOFING"},
+            {"name":"ROOFING (LA) - Arch 30YR w/ arch shingles","unit":"SQ","category":"ROOFING"},
+
+            // STRUCTURAL
+            {"name":"Floor Insulation - Insulate crawl space - (R-Value per local code).","unit":"SqFt","category":"STRUCTURAL – FOUNDATION"},
+            {"name":"Vapor Barrier - Install New 10Mil Vapor Barrier","unit":"SqFt","category":"STRUCTURAL – FOUNDATION"},
+            {"name":"Foundation Repairs (Scoped from Engineering Report)","unit":"EA","category":"STRUCTURAL : FOUNDATION"}
+        ];
+
+        function populateTable(data) {
+            const tbody = document.getElementById('servicesTable').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            
+            data.forEach(service => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td><strong>${service.name}</strong></td>
+                    <td>${service.unit}</td>
+                    <td class="category">${service.category}</td>
+                `;
+            });
+        }
+
+        function filterTable() {
+            const input = document.getElementById('search').value.toLowerCase().trim();
+            const filtered = services.filter(service => 
+                service.name.toLowerCase().includes(input) ||
+                service.category.toLowerCase().includes(input)
+            );
+            populateTable(filtered);
+        }
+
+        // Initial load
+        window.onload = () => populateTable(services);
+    </script>
 </body>
 </html>
