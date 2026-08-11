@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GP Audit">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a2a4a">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <title>GP Audit Tool</title>
+    <style>
+        :root {
+            --primary: #1a2a4a;
+            --accent: #f4c430;
+            --bg: #f7f8fa;
+            --card: #ffffff;
+            --border: #d0d5dd;
+            --text: #1a1a1a;
+            --muted: #667085;
+            --danger: #d92d20;
+            --success-bg: #ecfdf3;
+        }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 12px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.4;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 8px 0;
+        }
+        .header-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .header-text h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .header-text p {
+            margin: 2px 0 0;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(16,24,40,0.08);
+            border: 1px solid var(--border);
+        }
+        .target-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .target-row label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        #target-gp {
+            background-color: #fff9c4;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            width: 100px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            margin: 0 0 10px 0;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -4px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 480px;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 6px 4px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background: #f2f4f7;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+        td input {
+            width: 100%;
+            min-width: 70px;
+            border: none;
+            background: transparent;
+            padding: 8px 4px;
+            font-size: 1rem;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+            -moz-appearance: textfield;
+        }
+        td input:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+            background: #fffef5;
+            border-radius: 4px;
+        }
+        td input::-webkit-outer-spin-button,
+        td input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .total td {
+            font-weight: 700;
+            background: #eef2f6;
+            font-size: 0.95rem;
+        }
+        .markup, .mu-percent, .markup2, .profit-gross {
+            font-variant-numeric: tabular-nums;
+            color: #344054;
+            font-size: 0.9rem;
+        }
+        .blended-box {
+            background: linear-gradient(135deg, #1a2a4a 0%, #2d3f66 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            margin: 16px 0;
+            box-shadow: 0 4px 12px rgba(26,42,74,0.25);
+        }
+        .blended-box .label {
+            font-size: 0.8rem;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .blended-box .value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        button {
+            flex: 1;
+            min-width: 120px;
+            padding: 14px 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.15s;
+        }
+        button:active {
+            transform: scale(0.97);
+        }
+        .btn-reset {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-add {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-secondary {
+            background: #e4e7ec;
+            color: #344054;
+        }
+        .hint {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 12px;
+            text-align: center;
+        }
+        /* Make first table rows clearer */
+        #cost-table tbody tr:not(.total):hover {
+            background: #fafbfc;
+        }
+        #sell-table tbody tr:not(.total):hover {
+            background: #fafbfc;
+        }
+        @media (max-width: 420px) {
+            body { padding: 10px; }
+            .header-text h1 { font-size: 1.2rem; }
+            table { min-width: 420px; font-size: 0.85rem; }
+            td input { min-width: 60px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <img src="icon-192.png" alt="GP">
+        </div>
+        <div class="header-text">
+            <h1>GP Audit Tool</h1>
+            <p>Birdsey Construction Management</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="target-row">
+            <label for="target-gp">Target GP%</label>
+            <input type="number" id="target-gp" step="0.01" placeholder="0.00" inputmode="decimal" oninput="updateGMInputs()">
+            <span style="font-size:0.85rem;color:var(--muted);">Applies to all GM% cells</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">Cost → Sell (from Target / Manual)</div>
+        <div class="table-wrap">
+            <table id="cost-table">
+                <thead>
+                    <tr>
+                        <th>Cost</th>
+                        <th>GM %</th>
+                        <th>Sell</th>
+                        <th>Markup $</th>
+                        <th>MU%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" class="cost" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td><input type="number" class="gm" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td><input type="number" class="sell" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td class="markup"></td>
+                        <td class="mu-percent"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" class="cost" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td><input type="number" class="gm" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td><input type="number" class="sell" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td class="markup"></td>
+                        <td class="mu-percent"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" class="cost" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td><input type="number" class="gm" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td><input type="number" class="sell" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                        <td class="markup"></td>
+                        <td class="mu-percent"></td>
+                    </tr>
+                    <tr class="total">
+                        <td id="total-cost">0.00</td>
+                        <td></td>
+                        <td id="total-sell">0.00</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="actions" style="margin-top:12px;">
+            <button type="button" class="btn-add" onclick="addCostRow()">+ Add Row</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-title">Sell / Cost → Profit (Blended)</div>
+        <div class="table-wrap">
+            <table id="sell-table">
+                <thead>
+                    <tr>
+                        <th>Sell</th>
+                        <th>Cost</th>
+                        <th>Markup $</th>
+                        <th>GP (decimal)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" class="sell2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                        <td><input type="number" class="cost2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                        <td class="markup2"></td>
+                        <td class="profit-gross"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" class="sell2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                        <td><input type="number" class="cost2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                        <td class="markup2"></td>
+                        <td class="profit-gross"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" class="sell2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                        <td><input type="number" class="cost2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                        <td class="markup2"></td>
+                        <td class="profit-gross"></td>
+                    </tr>
+                    <tr class="total">
+                        <td id="total-sell2">0.00</td>
+                        <td id="total-cost2">0.00</td>
+                        <td></td>
+                        <td id="total-profit-gross">0.000000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="actions" style="margin-top:12px;">
+            <button type="button" class="btn-add" onclick="addSellRow()">+ Add Row</button>
+        </div>
+    </div>
+
+    <div class="blended-box">
+        <div class="label">Blended GP%</div>
+        <div class="value"><span id="blended-gp">0.000000</span></div>
+    </div>
+
+    <div class="actions">
+        <button type="button" class="btn-reset" onclick="resetPage()">Reset All</button>
+        <button type="button" class="btn-secondary" onclick="clearAllInputs()">Clear Inputs</button>
+    </div>
+
+    <p class="hint">Install this app: Safari/Chrome → Share → Add to Home Screen</p>
+
+    <script>
+        // PWA service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            });
+        }
+
+        function updateGMInputs() {
+            const targetGP = parseFloat(document.getElementById('target-gp').value) || 0;
+            document.querySelectorAll('#cost-table .gm').forEach(gmInput => {
+                gmInput.value = targetGP.toFixed(2);
+                calculateRow(gmInput);
+            });
+        }
+
+        function calculateRow(element) {
+            const row = element.closest('tr');
+            if (!row || row.classList.contains('total')) return;
+
+            const costInput = row.querySelector('.cost');
+            const gmInput = row.querySelector('.gm');
+            const sellInput = row.querySelector('.sell');
+            const markupCell = row.querySelector('.markup');
+            const muPercentCell = row.querySelector('.mu-percent');
+
+            let cost = parseFloat(costInput.value) || 0;
+            let gm = parseFloat(gmInput.value) || 0;
+            let sell = parseFloat(sellInput.value) || 0;
+
+            if (element.classList.contains('cost') && cost !== 0) {
+                sell = cost / (1 - gm / 100);
+                sellInput.value = sell.toFixed(2);
+            } else if (element.classList.contains('gm')) {
+                if (cost !== 0) {
+                    sell = cost / (1 - gm / 100);
+                    sellInput.value = sell.toFixed(2);
+                }
+            } else if (element.classList.contains('sell') && sell !== 0) {
+                if (cost !== 0) {
+                    gm = ((sell - cost) / sell) * 100;
+                    gmInput.value = gm.toFixed(2);
+                }
+            }
+
+            // Recalc markup after any change
+            cost = parseFloat(costInput.value) || 0;
+            sell = parseFloat(sellInput.value) || 0;
+            const markup = sell - cost;
+            const muPercent = cost !== 0 ? (markup / cost) * 100 : 0;
+            markupCell.textContent = markup.toFixed(2);
+            muPercentCell.textContent = muPercent.toFixed(2) + '%';
+
+            calculateTotals();
+        }
+
+        function calculateSellRow(element) {
+            const row = element.closest('tr');
+            if (!row || row.classList.contains('total')) return;
+
+            const sellInput = row.querySelector('.sell2');
+            const costInput = row.querySelector('.cost2');
+            const markupCell = row.querySelector('.markup2');
+            const profitGrossCell = row.querySelector('.profit-gross');
+
+            let sell = parseFloat(sellInput.value) || 0;
+            let cost = parseFloat(costInput.value) || 0;
+
+            const markup = sell - cost;
+            markupCell.textContent = markup.toFixed(2);
+
+            const profitGross = sell !== 0 ? (sell - cost) / sell : 0;
+            profitGrossCell.textContent = profitGross.toFixed(6);
+
+            calculateSellTotals();
+        }
+
+        function calculateTotals() {
+            let totalCost = 0;
+            let totalSell = 0;
+            document.querySelectorAll('#cost-table .cost').forEach(input => {
+                totalCost += parseFloat(input.value) || 0;
+            });
+            document.querySelectorAll('#cost-table .sell').forEach(input => {
+                totalSell += parseFloat(input.value) || 0;
+            });
+            document.getElementById('total-cost').textContent = totalCost.toFixed(2);
+            document.getElementById('total-sell').textContent = totalSell.toFixed(2);
+            // Note: blended still driven by second table (original behavior)
+        }
+
+        function calculateSellTotals() {
+            let totalSell = 0;
+            let totalCost = 0;
+            document.querySelectorAll('#sell-table .sell2').forEach(input => {
+                totalSell += parseFloat(input.value) || 0;
+            });
+            document.querySelectorAll('#sell-table .cost2').forEach(input => {
+                totalCost += parseFloat(input.value) || 0;
+            });
+            const totalProfitGross = totalSell !== 0 ? (totalSell - totalCost) / totalSell : 0;
+
+            document.getElementById('total-sell2').textContent = totalSell.toFixed(2);
+            document.getElementById('total-cost2').textContent = totalCost.toFixed(2);
+            document.getElementById('total-profit-gross').textContent = totalProfitGross.toFixed(6);
+
+            calculateBlendedGP();
+        }
+
+        function calculateBlendedGP() {
+            const totalSell = parseFloat(document.getElementById('total-sell2').textContent) || 0;
+            const totalCost = parseFloat(document.getElementById('total-cost2').textContent) || 0;
+            const blendedGP = totalSell !== 0 ? ((totalSell - totalCost) / totalSell) : 0;
+            document.getElementById('blended-gp').textContent = blendedGP.toFixed(6);
+        }
+
+        function addCostRow() {
+            const tbody = document.querySelector('#cost-table tbody');
+            const totalRow = tbody.querySelector('tr.total');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="number" class="cost" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                <td><input type="number" class="gm" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                <td><input type="number" class="sell" step="0.01" inputmode="decimal" oninput="calculateRow(this)"></td>
+                <td class="markup"></td>
+                <td class="mu-percent"></td>
+            `;
+            tbody.insertBefore(newRow, totalRow);
+
+            // If target is set, apply it
+            const target = parseFloat(document.getElementById('target-gp').value);
+            if (!isNaN(target)) {
+                newRow.querySelector('.gm').value = target.toFixed(2);
+            }
+        }
+
+        function addSellRow() {
+            const tbody = document.querySelector('#sell-table tbody');
+            const totalRow = tbody.querySelector('tr.total');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="number" class="sell2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                <td><input type="number" class="cost2" step="0.01" inputmode="decimal" oninput="calculateSellRow(this)"></td>
+                <td class="markup2"></td>
+                <td class="profit-gross"></td>
+            `;
+            tbody.insertBefore(newRow, totalRow);
+        }
+
+        function clearAllInputs() {
+            document.querySelectorAll('input[type="number"]').forEach(inp => {
+                if (inp.id !== 'target-gp') inp.value = '';
+            });
+            document.querySelectorAll('.markup, .mu-percent, .markup2, .profit-gross').forEach(el => el.textContent = '');
+            document.getElementById('total-cost').textContent = '0.00';
+            document.getElementById('total-sell').textContent = '0.00';
+            document.getElementById('total-sell2').textContent = '0.00';
+            document.getElementById('total-cost2').textContent = '0.00';
+            document.getElementById('total-profit-gross').textContent = '0.000000';
+            document.getElementById('blended-gp').textContent = '0.000000';
+        }
+
+        function resetPage() {
+            if (confirm('Reset everything to original 3 rows?')) {
+                location.reload();
+            }
+        }
+
+        // Prevent accidental zoom on double-tap (iOS)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (e) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) e.preventDefault();
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "GP Audit Tool",
+  "short_name": "GP Audit",
+  "description": "Gross Profit audit calculator for construction estimating - Birdsey Construction Management",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a2a4a",
+  "theme_color": "#1a2a4a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
